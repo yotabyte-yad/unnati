@@ -5,63 +5,66 @@
         <div class="form-group col-md-10 col-lg-offset-1" >
           <div class="row">
             <div class="form-group col-md-2">
-              <label class="control-label" for="id">Code</label>
+              <label class="control-label" for="id"><b>Code</b></label>
               <input class="form-control" id="id" type="text" disabled></input>
             </div>
             <div class="form-group col-md-10">
-              <label class="control-label" for="name">Name</label>
-              <input class="form-control" id="name" ng-model="itemModel.name" type="text">
+              <label class="control-label" for="item_name"><b>Name</b></label>
+              <input class="form-control" id="item_name" ng-model="itemModel.item_name" type="text">
             </div>
-            <div class="form-group col-md-4">
-              <label class="control-label" for="tin">Supplier</label>
-              <input class="form-control" id="tin" ng-model="itemModel.tin" type="text">
+            <div class="form-group col-md-6">
+              <label class="control-label" for="item_costprice"><b>Cost Price (Rs.)</b></label>
+              <input class="form-control" id="item_costprice" type="text" ng-model="itemModel.item_costprice" money> 
+            </div>
+            <div class="form-group col-md-6">
+              <label class="control-label" for="item_salesprice"><b>Sales Price (Rs.)</b></label>
+              <input class="form-control" id="item_salesprice" ng-model="itemModel.item_salesprice" type="text" money>
             </div>
             <div class="form-group col-md-8">
-              <label class="control-label" for="tin">UOM</label>
-              <input class="form-control" id="tin" ng-model="itemModel.address" type="text">
+              <label class="control-label" for="item_mfg"><b>Supplier</b></label>
+              <input class="form-control" id="item_mfg" ng-model="itemModel.item_mfg" type="text">
             </div>
             <div class="form-group col-md-4">
-              <label class="control-label" for="state">Description</label>
-              <input class="form-control" id="state" ng-model="itemModel.state" type="text">
+              <label class="control-label" for="item_uom"><b>UOM</b></label>
+              <input class="form-control" id="item_uom" ng-model="itemModel.item_uom" type="text">
             </div>
-             <div class="form-group col-md-4">
-              <label class="control-label" for="pincode">Current Stock</label>
-              <input class="form-control" id="pincode" ng-model="itemModel.pincode" type="text">
+            <div class="form-group col-md-12">
+              <label class="control-label" for="item_description"><b>Description</b></label>
+              <input class="form-control" id="item_description" ng-model="itemModel.item_description" type="text">
+            </div>
+             <div class="form-group col-md-3">
+              <label class="control-label" for="item_current_stock"><b>Current Stock</b></label>
+              <input class="form-control" id="item_current_stock" ng-model="itemModel.item_current_stock" type="text" onkeypress="return wholeNumbers(event,this);">
             </div> 
-            <div class="form-group col-md-4">
-              <label class="control-label" for="phone">Re-Order Level</label>
-              <input class="form-control" id="phone" ng-model="itemModel.phone" type="text">
+            <div class="form-group col-md-3">
+              <label class="control-label" for="item_reorder_level"><b>Re-Order Level</b></label>
+              <input class="form-control" id="item_reorder_level" ng-model="itemModel.item_reorder_level" type="text" onkeypress="return wholeNumbers(event,this);">
             </div>
-            <div class="form-group col-md-6">
-              <label class="control-label" for="person">Re-Order Quantity</label>
-              <input class="form-control" id="person" ng-model="itemModel.person" type="text">
+            <div class="form-group col-md-3">
+              <label class="control-label" for="item_reorder_qty"><b>Re-Order Quantity</b></label>
+              <input class="form-control" id="item_reorder_qty" ng-model="itemModel.item_reorder_qty" type="text" onkeypress="return wholeNumbers(event,this);">
             </div>
-            <div class="form-group col-md-6">
-              <label class="control-label" for="email">Cost Price</label>
-              <input class="form-control" id="email" ng-model="itemModel.email" type="text">
-            </div>
-            <div class="form-group col-md-6">
-              <label class="control-label" for="email">Sales Price</label>
-              <input class="form-control" id="email" ng-model="itemModel.email" type="text">
-            </div>
-            <div class="form-group col-md-6">
-              <label class="control-label" for="email">Vat %</label>
-              <input class="form-control" id="email" ng-model="itemModel.email" type="text">
-            </div>                  
-          </div>
-          <div class="checkbox col-lg-offset-5">
-              <label><input type="checkbox" ng-model="itemModel.active"> Active </label>
+            <div class="form-group col-md-3"> 
+              	<fieldset class="form-group">
+							    <label for="item_tax_per"><b>Vat %</b></label>
+							    <select class="form-control" id="item_tax_per" ng-model="itemModel.item_tax_per">
+							      <option>0</option>
+							      <option>5.5</option>
+							      <option>12.5</option>
+							    </select>
+							  </fieldset>
+						</div>	  
           </div> 
-      </div>
-     </div>
-    </div>
     <div class="row">
       <div class="col-sm-8 col-sm-offset-5">
-        <button class="btn btn-success" ng-click="createItem(itemModel)">Add Item</button>
+        <button class="btn btn-success" ng-click="createItem(itemModel)"><b>Add Item</b></button>
       </div>  
     </div>
   </div>
-</div> 
+  </div>
+</div>
+
+
 
 
 <div class="row">

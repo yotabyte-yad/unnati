@@ -27,7 +27,8 @@ var app = angular.module("ybinvoice",[
 					'ngSanitize', 
 					'mgcrea.ngStrap',
 					'angular-ladda',
-					'ngAnimate'
+					'ngAnimate',
+					'fiestah.money'
 					]);
 
 app.config(function($routeProvider) {
@@ -226,4 +227,32 @@ app.controller("NavCtrl", function($rootScope, $scope, $http, $location){
 				$location.url("/home");
 			});
 	}
+});
+
+
+app.directive('smartFloat', function ($filter) {
+
+var FLOAT_REGEXP_3 = /^\$?\d+(\.\d*)?$/; //Numbers like: 1123.56
+var FLOAT_REGEXP   = /^[0-9]+(\.[0-9]{1,2})?$/;
+    return {
+        require: 'ngModel',
+        link: function (scope, elm, attrs, ctrl) {
+            ctrl.$parsers.unshift(function (viewValue) {
+                if (FLOAT_REGEXP.test(viewValue)) {
+                    ctrl.$setValidity('float', true);
+                    return parseFloat(viewValue.replace('.', '').replace(',', '.'));
+                } else {
+                    ctrl.$setValidity('float', false);
+                    return undefined;
+                }
+            });
+
+            ctrl.$formatters.unshift(
+               function (modelValue) {
+                   return $filter('number')(parseFloat(modelValue) , 2);
+               }
+           );
+        }
+    };
+
 });
