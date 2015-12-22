@@ -88,7 +88,7 @@
                 <td class="emptyrow"></td>
                 <td class="emptyrow"></td>
                 <td style="text-align:center"><b>Sub Total</b></td>
-                <td style="text-align:center">{{totalPrice()}}</td> 
+                <td style="text-align:center">{{totalPrice() | currency: '&#8377' : 0}}</td> 
               </tr>
               <tr>
                 <td class="emptyrow"></td>
@@ -98,7 +98,7 @@
                 <td class="emptyrow"></td>
                 <td class="emptyrow"></td>
                 <td style="text-align:center" class="emptyrow"><b>Discount</b></td>
-                <td style="text-align:center"><input class="form-control input-sm" ng-model="salesInvoiceModel.discount_amt"></td> 
+                <td style="text-align:center"><input class="form-control input-sm" ng-model="salesInvoiceModel.discount_amt" money></td> 
               </tr>
               <tr>
                 <td class="emptyrow"></td>
@@ -108,7 +108,7 @@
                 <td class="emptyrow"></td>
                 <td class="emptyrow"></td>
                 <td style="text-align:center" class="emptyrow"><b>Grand Total</b></td>
-                <td style="text-align:center" class="emptyrow total">{{totalPrice() - salesInvoiceModel.discount_amt}}</td> 
+                <td style="text-align:center" class="emptyrow total"><b>{{totalPrice() - salesInvoiceModel.discount_amt | currency: '&#8377' : 0}}</b></td> 
               </tr>       
             </tfooter>
           </table>   
