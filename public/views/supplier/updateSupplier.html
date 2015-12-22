@@ -1,0 +1,60 @@
+<div class="row-fluid">
+  <div class="container col-lg-10 col-lg-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="form-group col-md-10 col-lg-offset-1" >
+          <div class="row">
+            <div class="form-group col-md-2">
+              <label class="control-label" for="id">Code</label>
+              <input class="form-control" id="id" ng-model="supplierModel.id"type="text" disabled></input>
+            </div>
+            <div class="form-group col-md-10">
+              <label class="control-label" for="name">Name</label>
+              <input class="form-control" id="name" ng-model="supplierModel.name" type="text">
+            </div>
+            <div class="form-group col-md-4">
+              <label class="control-label" for="tin">TIN</label>
+              <input class="form-control" id="tin" ng-model="supplierModel.tin" type="text">
+            </div>
+            <div class="form-group col-md-8">
+              <label class="control-label" for="tin">Address</label>
+              <input class="form-control" id="tin" ng-model="supplierModel.address" type="text">
+            </div>
+            <div class="form-group col-md-4">
+              <label class="control-label" for="state">State</label>
+              <input class="form-control" id="state" ng-model="supplierModel.state" type="text">
+            </div>
+             <div class="form-group col-md-4">
+              <label class="control-label" for="pincode">Pincode</label>
+              <input class="form-control" id="pincode" ng-model="supplierModel.pincode" type="text">
+            </div> 
+            <div class="form-group col-md-4">
+              <label class="control-label" for="phone">Phone #</label>
+              <input class="form-control" id="phone" ng-model="supplierModel.phone" type="text">
+            </div>
+            <div class="form-group col-md-6">
+              <label class="control-label" for="person">Contact Person</label>
+              <input class="form-control" id="person" ng-model="supplierModel.person" type="text">
+            </div>
+            <div class="form-group col-md-6">
+              <label class="control-label" for="email">Email</label>
+              <input class="form-control" id="email" ng-model="supplierModel.email" type="text">
+            </div>              
+          </div>
+          <div class="checkbox col-lg-offset-5">
+              <label><input type="checkbox" ng-model="supplierModel.active"> Active </label>
+          </div> 
+      </div>
+     </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-5">
+        <button class="btn btn-success" ng-click="updateSupplier()">Update Supplier</button>
+      </div>  
+    </div>
+  </div>
+</div> 
+
+<script>
+   $('#datetimepicker').datepicker()
+</script> 		  

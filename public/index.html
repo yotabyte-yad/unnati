@@ -1,0 +1,123 @@
+<link href="css/bootstrap-simplex.css" rel="stylesheet" />
+
+<link href="css/jquery-ui.css" rel="stylesheet" />
+<link href="css/font-awesome.css" rel="stylesheet" />
+<link href="css/ladda-themeless.min.css" rel="stylesheet" />
+<link href="css/awesomplete.css" rel="stylesheet" />
+<link href="css/toastr.css" rel="stylesheet" />
+
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.js"></script>
+<script src="js/angular-animate.js"></script>
+<script src="js/angular-sanitize.js"></script>
+<script src="js/angular-strap.js"></script>
+<script src="js/angular-strap.tpl.js"></script>
+<script src="js/jcs-auto-validate.js"></script>
+<script src="js/date-picker.js"></script>
+<script src="js/mindmup-editabletable.js"></script>
+<script src="js/numeric-input-example.js"></script>
+<script src="js/typeahead.js"></script>
+<script src="js/spin.min.js"></script>
+<script src="js/ladda.min.js"></script>
+<script src="js/angular-ladda.js"></script>
+<script src="js/awesomplete.min.js"></script>
+<script src="js/toastr.min.js"></script>
+
+<!--
+<script src="//mgcrea.github.io/angular-strap/dist/angular-strap.tpl.js" data-semver="v2.3.5"></script>
+<script src="//mgcrea.github.io/angular-strap/docs/angular-strap.docs.tpl.js" data-semver="v2.3.5"></script>
+-->
+
+
+<script src="js/app.js"></script>
+<script src="js/appServices.js"></script>
+<script src="views/login/login.js"></script>
+<script src="views/logout/logout.js"></script>
+<script src="views/register/register.js"></script>
+<script src="views/profile/profile.js"></script>
+<script src="views/items/items.js"></script>
+<script src="views/purchase/purchase.js"></script>
+<script src="views/sales/createSalesInvoiceCtrl.js"></script>
+<script src="views/sales/listSalesInvoicesCtrl.js"></script>
+<script src="views/sales/updateSalesInvoiceCtrl.js"></script>
+<script src="views/search/search.js"></script>
+<script src="views/mfgs/mfgscreate.js"></script>
+<script src="views/mfgs/mfgslist.js"></script>
+<script src="views/mfgs/mfgsupdate.js"></script>
+<script src="views/supplier/createSupplier.js"></script>
+<script src="views/supplier/supplierList.js"></script>
+<script src="views/supplier/updateSupplier.js"></script>
+<body ng-app="ybinvoice">
+<!--	
+	<nav ng-controller="NavCtrl">
+		<span ng-show="currentUser">
+				<a href="#home">Home</a> |
+			<span ng-show="!currentUser">
+				<a href="#login">Login</a> |
+				<a href="#register">Register</a> |
+			</span>
+			<span ng-show="currentUser">
+				<a href="#profile">Profile</a> |
+				<a href="#logout" ng-click="logout()">Logout</a> 
+			</span>
+		</span>			
+	</nav>
+-->	
+<div class="col-lg-12">
+	<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+			<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Brand Name</a>
+			</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			<ul class="nav navbar-nav">
+				<li><a href="#login">Login</a></li>
+				<li><a href="#home">Home</a></li>
+				<li><a href="#createSupplier">Add Supplier</a></li>
+				<li><a href="#createsalesinvoice">Bill</a></li>
+				<li><a href="#items">List Items</a></li>
+				<li><a href="#supplierlist">List Suppliers</a></li>				
+				<li><a href="#mfgslist">List Manufacturers</a></li>
+				<!-- <li><a href="#logout" ng-click="logout()">Logout</a></li> -->
+				<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					Dropdown <span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" role="menu">					
+					<li><a href="#purchase">Purchase</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li><a href="#profile">Profile</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+					<li class="divider"></li>
+					<li><a href="#">One more separated link</a></li>
+				</ul>
+				</li>
+			</ul>
+			<form class="navbar-form navbar-right" role="search">
+				<div class="form-group">
+				<input type="text" class="form-control" placeholder="Item Search">
+				</div>
+			</form>
+		</div>
+	</div>
+	</nav>
+</div>				
+	<!-- <span ng-show="currentUser1">
+		User logged in: {{currentUser}}
+	</span> -->		
+	<div ng-view class="col-lg-12">
+	</div>
+</body>

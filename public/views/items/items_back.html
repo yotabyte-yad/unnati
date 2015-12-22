@@ -1,0 +1,128 @@
+	<form ng-submit="createItem()" name="theForm" novalidate="novalidate" >
+		<div class="form-group">
+			<label for="name">Name</label>
+			<input type="text"
+				   class="form-control"
+				   ng-model="itemModel.item_name"
+				   id="item_name"
+				   required="required">
+		</div>
+		<div class="form-group">
+			<label for="name">Manufacturer</label>
+			<input type="text"
+				   class="form-control"
+				   ng-model="itemModel.item_mfg"
+				   id="item_mfg"
+				   required="required">
+		</div>
+		<div class="form-group">
+			<label for="name">Tax Percentage</label>
+			<input type="number"
+				   class="form-control"
+				   ng-model="itemModel.item_tax_per"
+				   id="item_tax_per"
+				   required="required">
+		</div>
+		<div class="form-group">
+			<label for="name">Re-order Level</label>
+			<input type="number"
+				   class="form-control"
+				   ng-model="itemModel.item_reorder_level"
+				   id="item_reorder_level">
+		</div>
+		<div class="form-group">
+			<label for="name">Comments and Notes </label>
+			<input type="textbox"
+				   class="form-control"
+				   ng-model="itemModel.item_description"
+				   id="item_description">
+		</div>		
+		<div class="form-group">
+			<label for="name">Schedule H</label>
+			<input type="checkbox"
+				   class="form-control"
+				   ng-model="itemModel.item_sch"
+				   id="item_sch">
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary"
+					ladda="submitting"
+					data-style="expand-right" 
+					type="submit">
+					<span ng-show="!submitting">Create</span>
+					<span ng-show="submitting">Saving</span>					
+			</button>
+		</div>
+	</form>
+	
+	<pre>{{itemModel | json}}</pre>
+		
+
+
+
+      <!--Body content
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Items Master</h3>
+			</div>
+			<div class="panel-body">
+				<div>
+					<div class="row">
+						<div class="form-group col-md-8">
+							<label class="control-label" for="itemname">Name</label>
+							<input class="form-control" id="itename" type="text" placeholder="Enter Item Name..." ng-model="item.name">
+						</div>
+						<div class="form-group col-md-3">
+							<label class="control-label" for="mfgname">Company</label>
+							<input class="form-control" id="mfgname" type="text" placeholder="Enter Company Name..." ng-model="item.mfg">
+						</div>
+
+						<div class="form-group col-md-1">
+							<label class="control-label" for="costprice">Schedule</label>
+							<input class="form-control" id="costprice" type="label" placeholder="Cost Price..." ng-model="item.sch">
+						</div>
+						<div class="form-group col-md-2">
+							<label class="control-label" for="reorder_level">Reorder Level</label>
+							<input class="form-control" id="reorder_level" type="text" placeholder="Retail Price..." ng-model="item.reorder_level">
+						</div>
+						<div class="form-group col-md-2">
+							<label class="control-label" for="reorder_qty">Reorder Qty</label>
+							<input class="form-control" id="reorder_qty" type="text" placeholder="Re-order level..." ng-model="item.reorder_qty">
+						</div>
+					</div>
+					<div class="row">	
+						<div class="form-group col-md-8">
+							<label class="control-label" for="itemdescription">Comments / Notes</label>
+							<text class="form-control" rows="1" id="itemdescription" placeholder="Enter item description / notes..." ng-model="item.description"></text>
+						</div>
+						<div class="form-group col-md-4">
+							<label class="control-label" for="currentstock">Current Stock</label>
+							<input class="form-control" id="currentstock" type="text" value="200" disabled>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-8 col-sm-offset-5">
+							<button class="btn btn-success" ng-click="createItem(item)">Create Item</button>			
+						</div>	
+					</div>		
+				</div>
+			</div>
+		</div>
+
+
+
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+			<li><a href="#items" data-toggle="tab">Profile</a></li>
+			<li><a>Disabled</a></li>
+		</ul>
+		<span ng-show="serverResponse">
+			<table class="table table-striped">
+				<tr ng-repeat= "item in serverResponse">
+					<td>{{item.item_id}}</td>
+					<td>{{item.item_name}}</td>
+				</tr>
+			</table>	
+		</span>	
+
+-->			  

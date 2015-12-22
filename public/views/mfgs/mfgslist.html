@@ -1,0 +1,40 @@
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">List of Manufacturers</h3>
+  </div>
+  <div class="panel-body">
+      <form class = "form-inline well well-sm">
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" ng-model="search.name" placeholder="Search on name..." autocomplete="off" />
+        </div>
+      </form>
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr class="active">
+            <th class="col-lg-2">Manufacturer Code</th>
+            <th class="col-lg-5">Manufacturer Name
+                <span ng-click="order = 'name'" class="glyphicon glyphicon-menu-up"></span>
+                <span ng-click="order = '-name'" class="glyphicon glyphicon-menu-down"></span>
+            </th>
+            <th class="col-lg-2">State
+                <span ng-click="order = 'state'" class="glyphicon glyphicon-menu-up"></span>
+                <span ng-click="order = '-state'" class="glyphicon glyphicon-menu-down"></span>
+            </th>
+            <th class="col-lg-2">Pincode</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="mfgs in allMfgs | filter:search | orderBy:order">
+                  <td> {{mfgs.id}} </td>
+                  <td>{{mfgs.name}}</td>
+                  <td>{{mfgs.state}}</td>
+                  <td>{{mfgs.pincode}}</td>
+                  <td>
+                    <button class="btn btn-success btn-sm" ng-click="goToEditScreen(mfgs.id)">Edit</button>
+                  </td>
+          </tr>
+        </tbody>  
+      </table>  
+  <div>  
+</div>      

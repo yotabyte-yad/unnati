@@ -1,0 +1,137 @@
+<pre>{{salesInvoiceModel}}</pre>
+<div class="container main-content col-md-12" id = "yadDiv">
+  
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <form>     
+
+              <div class="col-md-1">
+                  <label for="billno"><b>Bill No</b></label>
+                  <input type="text"
+                         class="form-control font-weight:bold" 
+                         id="billno",
+                         ng-model="salesInvoiceModel.billno"  
+                         value="" disabled>
+              </div> 
+              <div class="col-md-2">
+                <label class="control-label" for="date"><b>Date</b></label>
+                <input type="date"
+                       class="form-control" 
+                       id="date"  
+                       ng-model = "salesInvoiceModel.date"
+                       value="2011-01-13">
+              </div> 
+              <div class="col-md-4">
+                <label class="control-label" for="patient"><b>Patient Name</b></label>
+                <input type="text"
+                       class="form-control" 
+                       id="patient"  
+                       ng-model = "salesInvoiceModel.buyer">
+              </div>
+              <div class="col-md-5">
+                <label class="control-label" for="doctor"><b>Prescribing Doctor</b></label>
+                <input type="text"
+                       class="form-control" 
+                       id="doctor"  
+                       ng-model = "salesInvoiceModel.doctor">
+              </div>
+        </form> 
+                            <div><div>&nbsp</div></div> 
+    <!--  </div>  Panel Body 
+    </div>  Panel Default -->
+
+        <!-- Table for Bill Details with ANGULAR JS-->
+        <div class="col-lg-12 col-lg-offset-0 center"
+             ng-init="salesInvoiceModel={items:[{
+             itemname:undefined,
+             quantity:0,
+             sch: false,
+             mfg: '',
+             batch: '',
+             expdate: '',
+             price: 100,
+             amount: ''
+             }]}">
+          <table class="table table-bordered table-condensed">
+            <thead>
+              <tr class="active">  
+                <th class="col-lg-5" style="text-align:center">ITEM </th>
+                <th class="col-lg-1" style="text-align:center">Quantity</th>              
+                <th class="col-lg-1" style="text-align:center">SCH </th>
+                <th class="col-lg-1" style="text-align:center">MFG. </th>
+                <th class="col-lg-1" style="text-align:center">Batch No. </th>
+                <th class="col-lg-1" style="text-align:center">Exp Data</th>
+                <th class="col-lg-1" style="text-align:center">Price</th>
+                <th class="col-lg-1" style="text-align:center">Amount</th>
+                <th class="col-lg-1"></th>
+              </tr>    
+            </thead>
+            <tbody class="detail">
+              <tr ng-repeat = "item in salesInvoiceModel.items">
+                <td><input class="form-control input-sm" ng-model="item.itemname" ng-keypress="addItem()" ></td>
+                <td style="text-align:center"><input class="form-control input-sm" ng-model="item.quantity"></td>
+                <td style="text-align:center">{{item.sch}}</td>
+                <td style="text-align:center">{{item.mfg}}</td>
+                <td style="text-align:center">{{item.batch}}</td>
+                <td style="text-align:center">{{item.expdate}}</td>
+                <td style="text-align:center">{{item.price}}</td>
+                <td style="text-align:center amount">{{(item.quantity || 0) * (item.price || 0)}}</td>
+                <td> <input type="button" value="X" class="btn btn-primary btn-sm" ng-click=removeItem(item)></td>             
+              </tr>
+            </tbody>
+            <tfooter>
+              <tr>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td style="text-align:center"><b>Sub Total</b></td>
+                <td style="text-align:center">{{totalPrice()}}</td> 
+              </tr>
+              <tr>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td style="text-align:center" class="emptyrow"><b>Discount</b></td>
+                <td style="text-align:center"><input class="form-control input-sm" ng-model="salesInvoiceModel.discount_amt"></td> 
+              </tr>
+              <tr>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td style="text-align:center" class="emptyrow"><b>Grand Total</b></td>
+                <td style="text-align:center" class="emptyrow total">{{totalPrice() - salesInvoiceModel.discount_amt}}</td> 
+              </tr>       
+            </tfooter>
+          </table>   
+
+      </div> <!-- Panel Body -->
+
+    </div> <!-- Panel Default -->
+    
+   </div>
+
+    <div class="form-group col-lg-offset-5">
+      <input type="button" value="+" class="btn btn-primary" ng-click="addItem()">
+        <button class="btn btn-primary" ng-click="saveSalesInvoice()"> SAVE BILL
+        </button>  
+    </div>  
+    <!-- ABOVE:::::: Table for Bill Details with ANGULAR JS-->
+</div> <!-- Main DIV for yadDIV -->
+
+
+<script>
+  // $('#mainTable1').editableTableWidget({ editor: $('<input>'), preventColumns: [ 3,4,5,6,7 ] }).numericInputExample();
+</script>
+      
+
+
+

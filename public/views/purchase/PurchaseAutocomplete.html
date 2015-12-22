@@ -1,0 +1,42 @@
+<h1> Trying for Autocomplete </h1>
+<h2>{{test_variable}}</h2>
+        <div class="container">
+            <div class="form-group">
+                <label for="single">Single</label>
+                <input type="text" class="form-control" id="single"/>
+                <button class="btn btn-primary" ng-click= "getSuppliers()">Fill Array</button>
+            </div>
+        </div> 
+        
+        <script>
+            var availableTags = [
+                    "ActionScript",
+                    "AppleScript",
+                    "Asp",
+                    "BASIC",
+                    "C",
+                    "C++",
+                    "Clojure",
+                    "COBOL",
+                    "ColdFusion",
+                    "Erlang",
+                    "Fortran",
+                    "Groovy",
+                    "Haskell",
+                    "Java",
+                    "JavaScript",
+                    "Lisp",
+                    "Perl",
+                    "PHP",
+                    "Python",
+                    "Ruby",
+                    "Scala",
+                    "Scheme"
+                    ];
+                                    
+                    $( "#single" ).autocomplete({
+                    source: 'http://localhost:3000/suppliers'
+                    });
+            
+            
+        </script>    

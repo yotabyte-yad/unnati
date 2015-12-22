@@ -1,0 +1,24 @@
+<section id="ajax-example">
+	<div class="awesomplete">
+		<input type="text" autocomplete="off" aria-autocomplete="list">
+			<ul hidden=""></ul>
+			<span class="visually-hidden" role="status" aria-live="assertive" aria-relevant="additions"></span>
+	</div>
+	<input id="myinput" />
+</section>
+
+<script>
+		var ajax
+		ajax = new XMLHttpRequest()
+		//ajax.open("GET", "https://restcountries.eu/rest/v1/lang/fr", true)
+		ajax.open("GET", "http://localhost:5000/items", true)
+		ajax.onload = function() {
+			{
+					var list = JSON.parse(ajax.responseText).map(function(i) {
+					return i.id + ' --- ' + i.item_name;
+					})
+					new Awesomplete(document.querySelector("#ajax-example input"),{list:list, minChars: 1});
+		}
+	}
+		ajax.send();
+</script>

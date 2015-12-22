@@ -1,0 +1,59 @@
+<div>
+    <!--	 You Can Make It As A View -->   
+        
+        
+   <!--     
+        <div class="list-wrapper">
+        
+        	<h1>Pure Angular JS Autocomplete Text Field</h1>
+        	<div class="label">Search For A Programming Language</div>
+            
+            <div><input type="text" placeholder="Search for items" class="input" ng-keydown="checkKeyDown($event)" ng-keyup="checkKeyUp($event)"  ng-model="searchText" ng-change="search()" /></div>
+            
+            <ul class="suggestions-list">
+                <li ng-repeat="suggestion in suggestions track by $index" ng-class="{active : selectedIndex === $index}" ng-click="AssignValueAndHide($index)">{{suggestion}}</li>
+            </ul>
+            
+        </div>
+         End Of view -->
+      
+        <div class="container">
+            <div class="form-group">
+                <label for="single">Single</label>
+                <input type="text" class="form-control" id="single" ng-change="getSuppliers()"/>
+            </div>
+        </div>     
+        <script>
+            var availableTags = [
+                    "ActionScript",
+                    "AppleScript",
+                    "Asp",
+                    "BASIC",
+                    "C",
+                    "C++",
+                    "Clojure",
+                    "COBOL",
+                    "ColdFusion",
+                    "Erlang",
+                    "Fortran",
+                    "Groovy",
+                    "Haskell",
+                    "Java",
+                    "JavaScript",
+                    "Lisp",
+                    "Perl",
+                    "PHP",
+                    "Python",
+                    "Ruby",
+                    "Scala",
+                    "Scheme"
+                    ];
+                                    
+                    $( "#single" ).autocomplete({
+                    source: availableTags
+                    });
+            
+            
+        </script>    
+
+<div>

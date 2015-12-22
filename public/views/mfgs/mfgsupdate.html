@@ -1,0 +1,49 @@
+<div class="col-lg-10 col-lg-offset-1">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title">Company Information</h3>
+    </div>
+    <toaster-container></toaster-container>
+    <div class="panel-body">
+      <div class="well1 bs-component1 col-lg-8 col-lg-offset-1">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="name" class="col-lg-1 col-lg-offset-1 control-label">Code</label>
+              <div class="col-lg-2 col-lg-offset-1">
+                <input type="text" class="form-control" id="id" ng-model="mfgsModel.id" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name" class="col-lg-1 col-lg-offset-1 control-label">Name</label>
+              <div class="col-lg-8 col-lg-offset-1">
+                <input type="text" class="form-control" id="name" ng-model="mfgsModel.name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="address" class="col-lg-1 col-lg-offset-1 control-label">Address</label>
+              <div class="col-lg-6 col-lg-offset-1">
+                <textarea rows="4" class="form-control" id="address" ng-model="mfgsModel.address"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="state" class="col-lg-1 col-lg-offset-1 control-label">State</label>
+              <div class="col-lg-3 col-lg-offset-1">
+                <input type="text" class="form-control" id="state" ng-model="mfgsModel.state">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="pincode" class="col-lg-1 col-lg-offset-1 control-label">Pincode</label>
+              <div class="col-lg-3 col-lg-offset-1">
+                <input type="text" class="form-control" id="pincode" ng-model="mfgsModel.pincode">
+              </div>
+            </div>
+            <div class="checkbox col-lg-offset-3">
+              <label><input type="checkbox" ng-model="mfgsModel.active"> Active </label>
+            </div>            
+          </form>
+      </div>    
+      <div class="col-lg-10 col-lg-offset-4">
+          <button class="btn btn-primary" ng-click="UpdateManufacturer()">Update</button>
+      </div>
+    </div>
+</div>
