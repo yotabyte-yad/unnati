@@ -375,10 +375,11 @@ app.post('/salesinvoice', function(req, res){
 	//console.log(salesInvoiceHeader);
 
 	//console.log(typeof(salesInvoice.items));
-
+	//console.log(salesInvoiceHeader);
+	console.log('AFTER SALES INVOICE HEADER');
 	db.sales.create(salesInvoiceHeader).then(function(header){
 			resBody = header;
-			console.log(resBody);
+			//console.log(resBody);
 			billNo = header.id;
 
 		salesInvoiceItems.items.forEach(function(elem) {
@@ -388,15 +389,20 @@ app.post('/salesinvoice', function(req, res){
       			//console.log('Each item', elem);
       			
       			db.sales_details.create(elem).then(function(item){
-      				consoloe.log(item);	
+      				//console.log(elem);	
+      				//Reduce the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
+      				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock -" + elem.quantity + " WHERE id = 10000004").spread(function(results, metadata) {
+							 //console.log(metadata);
+							});
+
       			}, function(e){
       				res.status(400).json(e);
-      				console.log(e);
+      				//console.log(e);
       			});
         }
     });	
 
-		console.log(header.id);
+		//console.log(header.id);
 	}, function(e){
 		console.log('error: ', e);
 	});
