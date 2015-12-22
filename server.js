@@ -81,8 +81,8 @@ app.post('/item', function(req, res){
 //   console.log(req.body.barcode);
 //   console.log(req.body.itemname);
 
-	var body = _.pick(req.body, 'item_name', 'item_mfg', 'item_sch', 
-								'item_reorder_level', 'item_reorder_qty' );
+	var body = _.pick(req.body, 'id','item_barcode', 'item_name', 'item_mfg', 'item_uom', 'item_description','item_current_stock',
+															'item_reorder_level', 'item_reorder_qty',  'item_costprice','item_salesprice', 'item_tax_per' );
 	console.log(body);
 	res.json(body);
 	// body.email = body.email.trim();
@@ -101,7 +101,7 @@ app.post('/item', function(req, res){
 }); 
 
 //GET all the items
-app.get("/items", function (req, res){
+app.get("/item", function (req, res){
 	var query = req.query;
 	var where = {};
 	

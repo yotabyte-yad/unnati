@@ -37,9 +37,18 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.DECIMAL(15, 2),
 			allowNull: true
 		},
+		item_salesprice: {
+			type: DataTypes.DECIMAL(15, 2),
+			allowNull: true
+		},
 		item_tax_per: {
 			type: DataTypes.DECIMAL(6, 2),
 			allowNull: true
+		},
+		active: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: false
 		}
 	});
 

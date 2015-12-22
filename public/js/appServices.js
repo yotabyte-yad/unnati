@@ -120,3 +120,32 @@ app.factory('PurchaseInvoiceFactory',['$http', function($http){
 	};
 
 }]);
+
+//Factory for Items
+app.factory('ItemFactory',['$http', function($http){
+	// variable stores one supplier record, useful during editing
+	var item = {};
+  var urlBase = server + '/item';
+
+  getAll = function(){
+		return $http.get(urlBase);
+	};
+
+	create = function(itemModel) {
+		return $http.post(urlBase, itemModel);
+	};
+
+	update = function(itemModel){
+		//console.log('appServicesUpdate', supplierModel);
+		return $http.put(urlBase + '/' + itemModel.id, itemModel);
+	}
+	
+
+	return {
+	 	item: item,
+	 	getAll: getAll,
+	 	create: create,
+	 	update: update
+	};
+
+}]);

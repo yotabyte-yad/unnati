@@ -151,6 +151,21 @@ app.config(function($routeProvider) {
   })	
 // END SECTION --> End point for purchase info screens   
 
+// BEGIN SECTION --> End point for items info screens  	
+  	.when('/createItem', {
+		templateUrl: 'views/items/createItem.html',
+		controller: 'createItemCtrl'
+  })
+  	.when('/updateItem/:id', {
+		templateUrl: 'views/items/updateItem.html',
+		controller: 'updateItemCtrl'
+  })
+    .when('/listItems', {
+		templateUrl: 'views/items/listItems.html',
+		controller: 'listItemsCtrl'
+  })	
+// END SECTION --> End point for items info screens   
+
     .when('/search', {
 		templateUrl: 'views/search/search.html',
 		controller: 'searchCtrl'
