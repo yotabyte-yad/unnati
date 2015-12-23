@@ -13,7 +13,7 @@ $scope.dummySalesInvoiceModel = {"items":[{ "item_id":"10000000", "itemname":"do
 																 "net_amount": "6000"
 																};
 
-console.log(localDate.toJSON());
+//console.log(localDate.toJSON());
 $scope.dummySalesInvoiceModel.net_amount = 6000;
 $scope.salesInvoiceModel = {};
 

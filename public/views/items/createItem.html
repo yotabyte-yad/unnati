@@ -1,12 +1,16 @@
-<div class="row-fluid">
+<!-- <div class="row-fluid">
   <div class="container col-lg-10 col-lg-offset-1">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="form-group col-md-10 col-lg-offset-1" >
-          <div class="row">
+        <div class="form-group col-md-10 col-lg-offset-1" > 
+          <div class="row"> -->
+     <div class="panel panel-default">     
+       <div class="panel-body"> 
+        <div class="container col-lg-10 col-lg-offset-1">
+          <div class="row">  
             <div class="form-group col-md-2">
-              <label class="control-label" for="id"><b>Code</b></label>
-              <input class="form-control" id="id" type="text" disabled></input>
+              <label class="control-label" for="item_barcode"><b>Bar Code</b></label>
+              <input class="form-control" id="item_barcode" ng-model="itemModel.item_barcode" type="text"></input>
             </div>
             <div class="form-group col-md-10">
               <label class="control-label" for="item_name"><b>Name</b></label>
@@ -14,11 +18,11 @@
             </div>
             <div class="form-group col-md-6">
               <label class="control-label" for="item_costprice"><b>Cost Price (Rs.)</b></label>
-              <input class="form-control" id="item_costprice" type="text" ng-model="itemModel.item_costprice" money> 
+              <input class="form-control" id="item_costprice" ng-model="itemModel.item_costprice" money type="text" > 
             </div>
             <div class="form-group col-md-6">
               <label class="control-label" for="item_salesprice"><b>Sales Price (Rs.)</b></label>
-              <input class="form-control" id="item_salesprice" ng-model="itemModel.item_salesprice" type="text" money>
+              <input class="form-control" id="item_salesprice" ng-model="itemModel.item_costprice" money type="text" > 
             </div>
             <div class="form-group col-md-8">
               <label class="control-label" for="item_mfg"><b>Supplier</b></label>
@@ -34,37 +38,40 @@
             </div>
              <div class="form-group col-md-3">
               <label class="control-label" for="item_current_stock"><b>Current Stock</b></label>
-              <input class="form-control" id="item_current_stock" ng-model="itemModel.item_current_stock" type="text" onkeypress="return wholeNumbers(event,this);">
+              <input class="form-control" id="item_current_stock" ng-model="itemModel.item_current_stock" type="text" onkeypress="return wholeNumbers(event,this);" value="1">
             </div> 
             <div class="form-group col-md-3">
               <label class="control-label" for="item_reorder_level"><b>Re-Order Level</b></label>
-              <input class="form-control" id="item_reorder_level" ng-model="itemModel.item_reorder_level" type="text" onkeypress="return wholeNumbers(event,this);">
+              <input class="form-control" id="item_reorder_level" ng-model="itemModel.item_reorder_level" type="text" onkeypress="return wholeNumbers(event,this);" value="0">
             </div>
             <div class="form-group col-md-3">
               <label class="control-label" for="item_reorder_qty"><b>Re-Order Quantity</b></label>
-              <input class="form-control" id="item_reorder_qty" ng-model="itemModel.item_reorder_qty" type="text" onkeypress="return wholeNumbers(event,this);">
+              <input class="form-control" id="item_reorder_qty" ng-model="itemModel.item_reorder_qty" type="text" onkeypress="return wholeNumbers(event,this);" value="0">
             </div>
             <div class="form-group col-md-3"> 
               	<fieldset class="form-group">
 							    <label for="item_tax_per"><b>Vat %</b></label>
 							    <select class="form-control" id="item_tax_per" ng-model="itemModel.item_tax_per">
-							      <option>0</option>
-							      <option>5.5</option>
-							      <option>12.5</option>
+							      <option value = "0" selected>0</option>
+							      <option value = "5.5">5.5</option>
+							      <option value = "12.5">12.5</option>
 							    </select>
 							  </fieldset>
-						</div>	  
-          </div> 
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-5">
-        <button class="btn btn-success" ng-click="createItem(itemModel)"><b>Add Item</b></button>
-      </div>  
-    </div>
-  </div>
-  </div>
-</div>
+						</div>
+            <label class="col-lg-offset-5"><input type="checkbox" ng-model="itemModel.active"> Active </label>
+          </div>  <!-- row  --> 
+        </div>  <!-- container col-lg-10 col-lg-offset-1 -->   
+       </div>
+      </div>
 
 
+<div class="col-sm-8 col-sm-offset-5">
+  <button class="btn btn-success" ng-click="createItem(itemModel)"><b>Add Item</b></button>
+</div>  
+
+           <!-- <div class="checkbox col-lg-offset-5">
+              <label><input type="checkbox" ng-model="supplierModel.active"> Active </label>
+            </div>  -->
 
 
 <div class="row">

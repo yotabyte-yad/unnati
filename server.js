@@ -83,25 +83,39 @@ app.post('/item', function(req, res){
 
 	var body = _.pick(req.body, 'id','item_barcode', 'item_name', 'item_mfg', 'item_uom', 'item_description','item_current_stock',
 															'item_reorder_level', 'item_reorder_qty',  'item_costprice','item_salesprice', 'item_tax_per' );
-	console.log(body);
+	//console.log(body);
 	res.json(body);
-	// body.email = body.email.trim();
-	// body.password = body.password.trim();
 
-	// console.log(body);
-	// res.send(body);
-	
-	// db.user.create(body).then(function(todo){
-	// 	res.json(todo.toPublicJSON());
-	// }, function(e){
-	// 	res.status(400).json(e);
-	// 	console.log('Error creating user: ' + e);
-	// });
-  
+	db.items.create(body).then(function(item){
+		res.json(item.toJSON());
+	},function(e){
+		console.log('Error creating Item: ' + e);
+	});
 }); 
 
+//GET - Fetch all the items
+app.get('/item', function(req, res){
+	var query = req.query;
+	var where = {};
+		//where.active = true;
+
+	if(query.hasOwnProperty('q') && query.q.length > 0){
+		where.name = {
+			$like: '%' + query.q + '%'
+		};
+	}	
+
+	db.items.findAll({where: where})
+		.then(function(items){		
+			//console.log(items);
+			res.json(items);			
+	}, function(e){
+		res.status(500).send('Error in fetch (GET) all items: ' + e);
+	});
+});	
+
 //GET all the items
-app.get("/item", function (req, res){
+app.get("/item_detail", function (req, res){
 	var query = req.query;
 	var where = {};
 	
