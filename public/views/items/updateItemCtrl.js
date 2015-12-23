@@ -14,10 +14,9 @@ app.controller("updateItemCtrl", function ($timeout, $location, $scope, $http, I
 		ItemFactory.update($scope.itemModel)
 		.success(function(){
 				$scope.error = 0;
-				// 	toastr.success('Supplier <b>' + $scope.supplierModel.name +'</b> updated successfully');	
-				// 	$timeout(function(){														
-				// 	$location.url("/supplierlist");
-				// }, 3000);		
+				$timeout(function(){														
+					$location.url("/listItems");
+				}, 3000);		
 
 		})
 		.error(function(){

@@ -1,6 +1,6 @@
 app.controller("listItemsCtrl", function ($timeout, $location, $scope, $http, ItemFactory){
 	$scope.itemModel = {};
-	$scope.allSuppliers = [];
+	$scope.allItems = [];
 	$scope.search = {};
 
 	$scope.getAllData = function(){
@@ -22,7 +22,7 @@ app.controller("listItemsCtrl", function ($timeout, $location, $scope, $http, It
 	$scope.goToEditScreen = function(id){
 		for(var i=0; i < $scope.allItems.length; i++){
 			var currItem = $scope.allItems[i];
-			if(currItem.id = id){
+			if(currItem.id === id){
 				ItemFactory.item = currItem;
 				break;
 			}
