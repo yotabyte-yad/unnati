@@ -6,12 +6,16 @@
           <div class="row">
             <!-- Put fields below -->
             <div class="form-group col-md-2">
-              <label class="control-label" for="id">Code</label>
-              <input class="form-control" id="id" type="text" disabled></input>
+              <label class="control-label" for="id">Date</label>
+              <input class="form-control" id="id" type="text" ng-model="purchaseInvoiceModel.id" ></input>
             </div>
             <div class="form-group col-md-10">
               <label class="control-label" for="name">Name</label>
-              <input class="form-control" id="name" ng-model="supplierModel.name" type="text">
+              <input class="form-control" id="supplier_name" ng-model="purchaseInvoiceModel.name" type="text">
+            </div>
+            <div class="form-group col-md-2">
+              <label class="control-label" for="id">Code</label>
+              <input class="form-control" id="id" type="text" disabled ng-model="purchaseInvoiceModel.id" ></input>
             </div>
             <!-- Put fields above -->
           </div>
@@ -20,7 +24,9 @@
     </div>
   </div>
 </div>   
-
+<pre>
+{{purchaseInvoiceModel}}
+</pre>
 
 <script>
   // $(function() {
@@ -61,28 +67,6 @@
 // 		      	minLength: 0      	
 // 		      });
 
-$('#name').autocomplete({
-		      	source: function( request, response ) {
-		      		$.ajax({
-		      			url : 'item',
-		      			dataType: 'json',
-						data: {
-						   q: request.term
-						},
-						 success: function( data ) {
-						 		console.log(data);
-							 response( $.map( data, function( item ) {
-								console.log(item);
-								return {
-									label: item,
-									value: item
-								}
-							}));
-						}
-		      		});
-		      	},
-		      	autoFocus: true,
-		      	minLength: 0      	
-		      });
+
 
 </script>
