@@ -142,11 +142,11 @@ app.config(function($routeProvider) {
 		templateUrl: 'views/purchase/createpurchaseinvoice.html',
 		controller: 'createPurchaseInvoiceCtrl'
   })
-  	.when('/buyerlist', {
+  	.when('/listpurchaseinvoices', {
 		templateUrl: 'views/purchase/listpurchaseinvoices.html',
 		controller: 'listPurchaseInvoicesCtrl'
   })
-    .when('/updatebuyer/:id', {
+    .when('/updatepurchaseinvoice/:id', {
 		templateUrl: 'views/purchase/udpatepurchaseinvoice.html',
 		controller: 'updatePurchaseInvoiceCtrl'
   })	
