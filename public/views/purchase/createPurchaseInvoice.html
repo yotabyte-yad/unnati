@@ -1,15 +1,15 @@
 <div class="row-fluid">
-  <div class="container col-lg-10 col-lg-offset-1">
+  <div class="container col-lg-12">
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="form-group col-md-10 col-lg-offset-1" >
           <div class="row">
             <!-- Put fields below -->
             <div class="form-group col-md-2">
-              <label class="control-label" for="id">Date</label>
-              <input class="form-control" id="id" type="text" ng-model="purchaseInvoiceModel.id" ></input>
+              <label class="control-label" for="date">Date</label>
+              <input class="form-control" id="date" type="text" ng-model="purchaseInvoiceModel.date" ></input>
             </div>
-            <div class="form-group col-md-10">
+            <div class="form-group col-md-8">
               <label class="control-label" for="name">Name</label>
               <input class="form-control" id="supplier_name" ng-model="purchaseInvoiceModel.name" type="text">
             </div>
@@ -20,6 +20,80 @@
             <!-- Put fields above -->
           </div>
         </div>
+      </div> <!-- panel body ends-->
+      <div class="panel-body">
+      	        <!-- Table for Bill Details with ANGULAR JS-->
+        <div class="col-lg-12 col-lg-offset-0 center"
+             ng-init="purchaseInvoiceModel = {items:[{
+             id:undefined,
+             item_barcode:undefined,
+             item_name:undefined,
+             purchase_item_purchase_qty:0,
+             purchase_item_costprice:0,
+             item_salesprice: 0,
+             item_tax_per: 0
+             }]}">
+          <table class="table table-bordered table-condensed">
+            <thead>
+              <tr class="active">  
+                <th class="col-lg-1" style="text-align:center">ID</th>
+                <th class="col-lg-1" style="text-align:center">Barcode</th>
+                <th class="col-lg-5" style="text-align:center">ITEM </th>
+                <th class="col-lg-1" style="text-align:center">Quantity</th>
+                <th class="col-lg-1" style="text-align:center">Cost Price</th>
+                <th class="col-lg-1" style="text-align:center">Sales Price</th>
+                <th class="col-lg-1" style="text-align:center">Vat %</th>
+                <th class="col-lg-1" style="text-align:center">Amount</th>
+                <th class="col-lg-1"></th>
+              </tr>    
+            </thead>
+            <tbody class="detail">
+              <tr ng-repeat = "item in purchaseInvoiceModel.items">
+                <td style="text-align:center">{{item.id}}</td>
+                <td style="text-align:center">{{item.item_barcode}}</td>
+                <td><input class="form-control input-sm item_autocomplete" ng-model="item.item_name" ng-keypress="addItem()" ></td>
+                <td style="text-align:center"><input class="form-control input-sm" ng-model="item.purchase_item_purchase_qty"></td>
+                <td style="text-align:center"><input class="form-control input-sm" ng-model="item.purchase_item_costprice"></td>
+                <td style="text-align:center">{{item.item_salesprice}}</td>
+                <td style="text-align:center">{{item.item_tax_per}}</td>
+                <td style="text-align:center amount">{{(item.purchase_item_purchase_qty || 0) * (item.purchase_item_costprice || 0)}}</td>
+                <td> <input type="button" value="X" class="btn btn-primary btn-sm" ng-click=removeItem(item)></td>             
+              </tr>
+            </tbody>
+            <tfooter>
+              <tr>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td style="text-align:center"><b>Sub Total</b></td>
+                <td style="text-align:center">{{totalPrice() | currency: '&#8377' : 0}}</td> 
+              </tr>
+              <tr>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td style="text-align:center" class="emptyrow"><b>Discount</b></td>
+                <td style="text-align:center"><input class="form-control input-sm" ng-model="salesInvoiceModel.discount_amt" money></td> 
+              </tr>
+              <tr>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td class="emptyrow"></td>
+                <td style="text-align:center" class="emptyrow"><b>Grand Total</b></td>
+                <td style="text-align:center" class="emptyrow total"><b>{{totalPrice() - salesInvoiceModel.discount_amt | currency: '&#8377' : 0}}</b></td> 
+              </tr>       
+            </tfooter>
+          </table>
+      </div> <!-- Panel Body -->
       </div>
     </div>
   </div>
@@ -29,43 +103,9 @@
 </pre>
 
 <script>
-  // $(function() {
-  //   var availableTags = [
-  //       { label: "DOLO, 'AUG 2015', 100", value: "DOLO" },
-  //       { label: "SOLO, 'AUG 2015', 100", value: "SOLO" },
-  //       { label: "HELLO, 'AUG 2015', 100", value: "HELLO" },
-  //       { label: "CROCIN, 'AUG 2015', 100", value: "CROCIN" },  
-  //   ];
-  //   $( "#name" ).autocomplete({
-  //       source: availableTags,
-  //       select: function (event, ui) {
-  //           alert('hi');
-  //       }
-  //   });
-  // });
-
-// $('#name').autocomplete({
-// 		      	source: function( request, response ) {
-// 		      		$.ajax({
-// 		      			url : 'item',
-// 		      			dataType: "json",
-// 						data: {
-// 						   q: request.term,
-// 						   type: 'country'
-// 						},
-// 						 success: function( data ) {
-// 							 response( $.map( data, function( item ) {
-// 								return {
-// 									label: item,
-// 									value: item
-// 								}
-// 							}));
-// 						}
-// 		      		});
-// 		      	},
-// 		      	autoFocus: true,
-// 		      	minLength: 0      	
-// 		      });
+  $(function() {
+  	$( "#date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
+  });
 
 
 

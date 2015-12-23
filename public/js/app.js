@@ -256,3 +256,26 @@ var FLOAT_REGEXP   = /^[0-9]+(\.[0-9]{1,2})?$/;
     };
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var global_fullDate = new Date();
+var global_twoDigitMonth = global_fullDate.getMonth()+"";if(global_twoDigitMonth.length==1)	global_twoDigitMonth="0" + global_twoDigitMonth;
+var global_twoDigitDate = global_fullDate.getDate()+"";if(global_twoDigitDate.length==1)	global_twoDigitDate="0" + global_twoDigitDate;
+var global_currentDate = global_twoDigitDate + "/" + global_twoDigitMonth + "/" + global_fullDate.getFullYear();//console.log(global_currentDate);
