@@ -24,7 +24,7 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 
 
 	$scope.addItem = function(){
-		$scope.purchaseInvoiceModel.date = global_currentDate;
+		//$scope.purchaseInvoiceModel.date = global_currentDate;
 		//Add blank row only if there are less than 1 blank row remaining
 		//no point in adding blank rows if 2 of them already exists
 		//console.log($scope.purchaseInvoiceModel);
@@ -37,7 +37,7 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 
 		if(blank == 0){
 			$scope.purchaseInvoiceModel.items.push({
-	         id:undefined,
+	         item_id:undefined,
            item_barcode:undefined,
            item_name:undefined,
            purchase_item_purchase_qty:0,
@@ -79,7 +79,7 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 			item_row = selectedRecord;
 			console.log(selectedRecord);
 			console.log('Interlink ---');
-			$scope.purchaseInvoiceModel.items[index].id = selectedRecord.id;
+			$scope.purchaseInvoiceModel.items[index].item_id = selectedRecord.id;
 			$scope.purchaseInvoiceModel.items[index].item_barcode = selectedRecord.item_barcode;
 			$scope.purchaseInvoiceModel.items[index].item_name = selectedRecord.item_name;
 			$scope.purchaseInvoiceModel.items[index].item_salesprice = selectedRecord.item_salesprice;
@@ -114,7 +114,7 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 		      						//console.log(ui.item);
 											// var names = ui.item.data.split(",");						
 											//$('#id').val(ui.item.id);
-											$scope.purchaseInvoiceModel.id = ui.item.id;
+											$scope.purchaseInvoiceModel.supplier_id = ui.item.id;
 											$scope.purchaseInvoiceModel.name  = ui.item.value; //this is wrong, i was trying something
 											$scope.$apply();
 										}      	

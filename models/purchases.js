@@ -28,6 +28,15 @@ module.exports = function(sequelize, DataTypes) {
 		net_amount: {
 			type: DataTypes.DECIMAL(6, 2),
 			allowNull: true
+		},
+		supplier_invoice_date: {
+			type: DataTypes.DATE,
+			allowNull: false
+		},
+		remarks: {
+			type: DataTypes.STRING,
+			allowNull: true
 		}
 	}); 
 };
+

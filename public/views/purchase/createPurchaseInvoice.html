@@ -2,20 +2,32 @@
   <div class="container col-lg-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="form-group col-md-10 col-lg-offset-1" >
+        <div class="form-group col-md-12" >
           <div class="row">
             <!-- Put fields below -->
             <div class="form-group col-md-2">
-              <label class="control-label" for="date">Date</label>
+              <label class="control-label" for="date">Purchase Date</label>
               <input class="form-control" id="date" type="text" ng-model="purchaseInvoiceModel.date" ></input>
             </div>
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-10">
               <label class="control-label" for="name">Name</label>
               <input class="form-control" id="supplier_name" ng-model="purchaseInvoiceModel.name" type="text">
             </div>
+            <!-- <div class="form-group col-md-2"> -->
+              <!-- <label class="control-label" for="supplier_id">Code</label> -->
+              <input class="form-control hidden" id="supplier_id" type="text" disabled ng-model="purchaseInvoiceModel.supplier_id"></input>
+            <!-- </div> -->
             <div class="form-group col-md-2">
-              <label class="control-label" for="id">Code</label>
-              <input class="form-control" id="id" type="text" disabled ng-model="purchaseInvoiceModel.id" ></input>
+              <label class="control-label" for="supplier_invoice_date">Invoice Date</label>
+              <input class="form-control" id="supplier_invoice_date" type="text" ng-model="purchaseInvoiceModel.supplier_invoice_date" ></input>
+            </div>
+            <div class="form-group col-md-2">
+              <label class="control-label" for="id">Invoice Ref #</label>
+              <input class="form-control" id="id" type="text" ng-model="purchaseInvoiceModel.invoice_no" ></input>
+            </div>
+            <div class="form-group col-md-8">
+              <label class="control-label" for="remarks">Remarks</label>
+              <input class="form-control" id="remarks" ng-model="purchaseInvoiceModel.remarks" type="text">
             </div>
             <!-- Put fields above -->
           </div>
@@ -49,7 +61,7 @@
             </thead>
             <tbody class="detail">
               <tr ng-repeat = "item in purchaseInvoiceModel.items">
-                <td style="text-align:center" id="item.id_{{$index}}">{{item.id}}</td>
+                <td style="text-align:center" id="item.id_{{$index}}">{{item.item_id}}</td>
                 <td style="text-align:center" id="item.item_barcode_{{$index}}">{{item.item_barcode}}</td>
                 <td><input class="form-control input-sm autocomplete_txt" id="item.item_name_{{$index}}" ng-model="item.item_name" ng-keypress="addItem()" ></td>
                 <td style="text-align:center"><input class="form-control input-sm" id="item.purchase_item_purchase_qty_{{$index}}" ng-model="item.purchase_item_purchase_qty"></td>
@@ -98,15 +110,15 @@
     </div>
   </div>
 </div>   
-<pre>
+<!-- <pre>
 {{purchaseInvoiceModel | json}}
-</pre>
+</pre> -->
 
 <script>
   $(function() {
   	$( "#date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
   });
-
-
-
+  $(function() {
+    $( "#supplier_invoice_date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
+  });
 </script>

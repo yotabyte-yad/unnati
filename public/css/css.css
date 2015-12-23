@@ -7,6 +7,10 @@
   
 }
 
+.hidden {
+    display: none;
+}
+
 .title {
   margin: 20px 0 0 0;
   font-size: 64px;

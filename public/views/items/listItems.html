@@ -5,7 +5,7 @@
   <div class="panel-body">
       <form class = "form-inline well well-sm">
         <div class="form-group">
-            <input type="text" class="form-control" id="name" ng-model="search.name" placeholder="Search on name..." autocomplete="off" />
+            <input type="text" class="form-control" id="name" ng-model="search.item_name" placeholder="Search on name..." autocomplete="off" />
         </div>
       </form>
       <table class="table table-bordered table-condensed">
@@ -13,14 +13,14 @@
           <tr class="active">
             <th class="col-lg-2">Item Code</th>
             <th class="col-lg-5">Name
-                <span ng-click="order = 'name'" class="glyphicon glyphicon-menu-up"></span>
-                <span ng-click="order = '-name'" class="glyphicon glyphicon-menu-down"></span>
+                <span ng-click="order = 'item_name'" class="glyphicon glyphicon-menu-up"></span>
+                <span ng-click="order = '-item_name'" class="glyphicon glyphicon-menu-down"></span>
             </th>
             <th class="col-lg-2">Current Stock
-                <span ng-click="order = 'state'" class="glyphicon glyphicon-menu-up"></span>
-                <span ng-click="order = '-state'" class="glyphicon glyphicon-menu-down"></span>
+                <span ng-click="order = 'item_current_stock'" class="glyphicon glyphicon-menu-up"></span>
+                <span ng-click="order = '-item_current_stock'" class="glyphicon glyphicon-menu-down"></span>
             </th>
-            <th class="col-lg-2">Cost Price</th>
+            <th class="col-lg-2">Location</th>
             <th class="col-lg-2">Sales Price</th>
             <th>Action</th>
           </tr>
@@ -30,7 +30,7 @@
                   <td>{{item.id}} </td>
                   <td>{{item.item_name}}</td>
                   <td>{{item.item_current_stock}}</td>
-                  <td>{{item.item_costprice}}</td>
+                  <td>{{item.item_loc}}</td>
                   <td>{{item.item_salesprice}}</td>
                   <td>
                     <button class="btn btn-success btn-sm" ng-click="goToEditScreen(item.id)">Edit</button>

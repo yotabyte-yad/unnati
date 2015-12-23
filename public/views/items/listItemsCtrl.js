@@ -9,10 +9,11 @@ app.controller("listItemsCtrl", function ($timeout, $location, $scope, $http, It
 					$scope.allItems = data;
 					//console.log(data);
 			}).error(function (data, status, header, config) {
-	        $scope.ResponseDetails = "Data: " + data +
-	            "<br />status: " + status +
-	            "<br />headers: " + jsonFilter(header) +
-	            "<br />config: " + jsonFilter(config);
+	        console.log(data);
+	        // $scope.ResponseDetails = "Data: " + data +
+	        //     "<br />status: " + status +
+	        //     "<br />headers: " + jsonFilter(header) +
+	        //     "<br />config: " + jsonFilter(config);
 	    });
 	};
 
@@ -26,8 +27,7 @@ app.controller("listItemsCtrl", function ($timeout, $location, $scope, $http, It
 				break;
 			}
 		}
-		// console.log('Item List', ItemFactory.item);
-		$location.url("/updateItem/:id");
+		$location.url("/updateItem/" + id);
 	}
 
 });

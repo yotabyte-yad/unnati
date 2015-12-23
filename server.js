@@ -81,7 +81,7 @@ app.post('/item', function(req, res){
 //   console.log(req.body.barcode);
 //   console.log(req.body.itemname);
 
-	var body = _.pick(req.body, 'id','item_barcode', 'item_name', 'item_mfg', 'item_uom', 'item_description','item_current_stock',
+	var body = _.pick(req.body, 'id','item_barcode', 'item_name', 'item_loc', 'item_description','item_current_stock',
 															'item_reorder_level', 'item_reorder_qty',  'item_costprice','item_salesprice', 'item_tax_per' );
 	//console.log(body);
 	res.json(body);
@@ -136,6 +136,26 @@ app.get("/item_detail", function (req, res){
 	});
 });
 
+
+// PUT /item/:id
+app.put ('/item/:id', function(req, res){
+	//var supplierId = parseInt(req.params.id);
+	var body = _.pick(req.body, 'id','item_barcode', 'item_name', 'item_loc', 'item_description','item_current_stock',
+															'item_reorder_level', 'item_reorder_qty',  'item_costprice','item_salesprice', 'item_tax_per' );
+
+	//console.log('updating', body);
+	db.items.findById(req.body.id).then( function (item){
+			if(item){
+				return item.update(body);
+
+			}else
+
+			{
+				res.status(404).send("ITEM ID not found to update");
+			}
+	res.json(item);
+	});
+});
 
 app.get("/rest/user", auth, function(req, res){
       //var allusers = knex.select('username').from('users').then (function(rows){res.send(rows)});

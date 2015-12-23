@@ -16,21 +16,13 @@
               <label class="control-label" for="item_name"><b>Name</b></label>
               <input class="form-control" id="item_name" ng-model="itemModel.item_name" type="text">
             </div>
-            <div class="form-group col-md-6">
-              <label class="control-label" for="item_costprice"><b>Cost Price (Rs.)</b></label>
-              <input class="form-control" id="item_costprice" ng-model="itemModel.item_costprice" money type="text" > 
-            </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-2">
               <label class="control-label" for="item_salesprice"><b>Sales Price (Rs.)</b></label>
               <input class="form-control" id="item_salesprice" ng-model="itemModel.item_costprice" money type="text" > 
             </div>
-            <div class="form-group col-md-8">
-              <label class="control-label" for="item_mfg"><b>Supplier</b></label>
-              <input class="form-control" id="item_mfg" ng-model="itemModel.item_mfg" type="text">
-            </div>
-            <div class="form-group col-md-4">
-              <label class="control-label" for="item_uom"><b>UOM</b></label>
-              <input class="form-control" id="item_uom" ng-model="itemModel.item_uom" type="text">
+            <div class="form-group col-md-10">
+              <label class="control-label" for="item_loc"><b>Location</b></label>
+              <input class="form-control" id="item_loc" ng-model="itemModel.item_loc" type="text">
             </div>
             <div class="form-group col-md-12">
               <label class="control-label" for="item_description"><b>Description</b></label>
@@ -64,6 +56,20 @@
        </div>
       </div>
 
+<!-- 
+            <div class="form-group col-md-6">
+              <label class="control-label" for="item_costprice"><b>Cost Price (Rs.)</b></label>
+              <input class="form-control" id="item_costprice" ng-model="itemModel.item_costprice" money type="text" > 
+            </div>
+            <div class="form-group col-md-8">
+              <label class="control-label" for="item_mfg"><b>Supplier</b></label>
+              <input class="form-control" id="item_mfg" ng-model="itemModel.item_mfg" type="text">
+            </div>
+            <div class="form-group col-md-4">
+              <label class="control-label" for="item_uom"><b>UOM</b></label>
+              <input class="form-control" id="item_uom" ng-model="itemModel.item_uom" type="text">
+            </div>
+-->
 
 <div class="col-sm-8 col-sm-offset-5">
   <button class="btn btn-success" ng-click="createItem(itemModel)"><b>Add Item</b></button>
@@ -75,5 +81,5 @@
 
 
 <div class="row">
-	<pre>{{itemModel | json}}</pre>
+	<pre>{{itemModel}}</pre>
 </div>	
