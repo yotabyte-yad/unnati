@@ -100,14 +100,14 @@ app.get('/item', function(req, res){
 		//where.active = true;
 
 	if(query.hasOwnProperty('q') && query.q.length > 0){
-		where.name = {
+		where.item_name = {
 			$like: '%' + query.q + '%'
 		};
 	}	
 
 	db.items.findAll({where: where})
 		.then(function(items){		
-			//console.log(items);
+			console.log(items);
 			res.json(items);			
 	}, function(e){
 		res.status(500).send('Error in fetch (GET) all items: ' + e);

@@ -17,4 +17,35 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 													"doctor":"TestDoc",
 													"discount":"100"}
 
+
+	$('#name').autocomplete({
+		      	source: function( request, response ) {
+		      		$.ajax({
+		      			url : 'suppliers',
+		      			dataType: "json",
+						data: {
+						   q: request.term
+						},
+						 success: function(data) {
+						 		//console.log('Hello', data);
+							 response( $.map( data, function( supplier ) {
+								//console.log(supplier);
+								return {
+									label: supplier.name,
+									value: supplier.name,
+									id: supplier.id
+								}
+							}));
+						}
+		      		});
+		      	},
+		      	autoFocus: true,
+		      	minLength: 0,
+		      	select: function( event, ui ) {
+		      						console.log(ui.item);
+											// var names = ui.item.data.split(",");						
+											$('#id').val(ui.item.id);
+										}      	
+		      });												
+
 });

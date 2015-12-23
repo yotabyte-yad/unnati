@@ -19,4 +19,70 @@
       </div>
     </div>
   </div>
-</div>           
+</div>   
+
+
+<script>
+  // $(function() {
+  //   var availableTags = [
+  //       { label: "DOLO, 'AUG 2015', 100", value: "DOLO" },
+  //       { label: "SOLO, 'AUG 2015', 100", value: "SOLO" },
+  //       { label: "HELLO, 'AUG 2015', 100", value: "HELLO" },
+  //       { label: "CROCIN, 'AUG 2015', 100", value: "CROCIN" },  
+  //   ];
+  //   $( "#name" ).autocomplete({
+  //       source: availableTags,
+  //       select: function (event, ui) {
+  //           alert('hi');
+  //       }
+  //   });
+  // });
+
+// $('#name').autocomplete({
+// 		      	source: function( request, response ) {
+// 		      		$.ajax({
+// 		      			url : 'item',
+// 		      			dataType: "json",
+// 						data: {
+// 						   q: request.term,
+// 						   type: 'country'
+// 						},
+// 						 success: function( data ) {
+// 							 response( $.map( data, function( item ) {
+// 								return {
+// 									label: item,
+// 									value: item
+// 								}
+// 							}));
+// 						}
+// 		      		});
+// 		      	},
+// 		      	autoFocus: true,
+// 		      	minLength: 0      	
+// 		      });
+
+$('#name').autocomplete({
+		      	source: function( request, response ) {
+		      		$.ajax({
+		      			url : 'item',
+		      			dataType: 'json',
+						data: {
+						   q: request.term
+						},
+						 success: function( data ) {
+						 		console.log(data);
+							 response( $.map( data, function( item ) {
+								console.log(item);
+								return {
+									label: item,
+									value: item
+								}
+							}));
+						}
+		      		});
+		      	},
+		      	autoFocus: true,
+		      	minLength: 0      	
+		      });
+
+</script>
