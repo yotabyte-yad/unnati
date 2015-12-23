@@ -24,6 +24,7 @@ var db = {};
 db.suppliers        = sequelize.import(__dirname + '/models/suppliers.js');
 //db.customers        = sequelize.import(__dirname + '/models/customers.js');
 //db.doctors          = sequelize.import(__dirname + '/models/doctors.js');
+db.buyers           = sequelize.import(__dirname + '/models/buyers.js');
 db.mfgs             = sequelize.import(__dirname + '/models/mfgs.js');
 db.taxes            = sequelize.import(__dirname + '/models/taxes.js');
 db.items            = sequelize.import(__dirname + '/models/items.js');
