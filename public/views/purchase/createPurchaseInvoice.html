@@ -49,13 +49,13 @@
             </thead>
             <tbody class="detail">
               <tr ng-repeat = "item in purchaseInvoiceModel.items">
-                <td style="text-align:center">{{item.id}}</td>
-                <td style="text-align:center">{{item.item_barcode}}</td>
-                <td><input class="form-control input-sm item_autocomplete" ng-model="item.item_name" ng-keypress="addItem()" ></td>
-                <td style="text-align:center"><input class="form-control input-sm" ng-model="item.purchase_item_purchase_qty"></td>
-                <td style="text-align:center"><input class="form-control input-sm" ng-model="item.purchase_item_costprice"></td>
-                <td style="text-align:center">{{item.item_salesprice}}</td>
-                <td style="text-align:center">{{item.item_tax_per}}</td>
+                <td style="text-align:center" id="item.id_{{$index}}">{{item.id}}</td>
+                <td style="text-align:center" id="item.item_barcode_{{$index}}">{{item.item_barcode}}</td>
+                <td><input class="form-control input-sm autocomplete_txt" id="item.item_name_{{$index}}" ng-model="item.item_name" ng-keypress="addItem()" ></td>
+                <td style="text-align:center"><input class="form-control input-sm" id="item.purchase_item_purchase_qty_{{$index}}" ng-model="item.purchase_item_purchase_qty"></td>
+                <td style="text-align:center"><input class="form-control input-sm" id="item.purchase_item_costprice_{{$index}}" ng-model="item.purchase_item_costprice"></td>
+                <td style="text-align:center" id="item.item_salesprice_{{$index}}">{{item.item_salesprice}}</td>
+                <td style="text-align:center" id="item.purchase_tax_amt_{{$index}}">{{item.item_tax_per}}</td>
                 <td style="text-align:center amount">{{(item.purchase_item_purchase_qty || 0) * (item.purchase_item_costprice || 0)}}</td>
                 <td> <input type="button" value="X" class="btn btn-primary btn-sm" ng-click=removeItem(item)></td>             
               </tr>
@@ -99,7 +99,7 @@
   </div>
 </div>   
 <pre>
-{{purchaseInvoiceModel}}
+{{purchaseInvoiceModel | json}}
 </pre>
 
 <script>

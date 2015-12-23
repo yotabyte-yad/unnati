@@ -74,7 +74,7 @@ app.post("/login", upload.array(), passport.authenticate('local'), function (req
   ///Extracting Item values in request body
 
 app.post('/item', function(req, res){
-  console.log(req.body);
+  //console.log(req.body);
 //   var item = {};
 //   item.itemname = req.body.itemname;
 // 	console.log('Printing Name' + item);
@@ -107,7 +107,7 @@ app.get('/item', function(req, res){
 
 	db.items.findAll({where: where})
 		.then(function(items){		
-			console.log(items);
+			//console.log(items);
 			res.json(items);			
 	}, function(e){
 		res.status(500).send('Error in fetch (GET) all items: ' + e);
@@ -233,8 +233,18 @@ app.put ('/mfgs/:id', function(req, res){
 //GET all the suppliers
 app.get('/suppliers', function(req, res){
 	//var query = req.query;
+	// var where = {};
+	// 	where.active = true;
+
+	var query = req.query;
 	var where = {};
 		where.active = true;
+
+	if(query.hasOwnProperty('q') && query.q.length > 0){
+		where.name = {
+			$like: '%' + query.q + '%'
+		};
+	}	
 
 
 	db.suppliers.findAll({
@@ -245,7 +255,7 @@ app.get('/suppliers', function(req, res){
 		res.json(suppliers);		
 		//console.log(suppliers.description);
 	}, function(e){
-		res.status(500).send('Error in Find all   :' + e);
+		res.status(500).send('Error in Find all Suppliers  :' + e);
 	});
 
 });				

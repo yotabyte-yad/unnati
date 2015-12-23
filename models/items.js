@@ -9,11 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING,
 			allowNull: true
 		},
-		item_mfg: {
-			type: DataTypes.STRING,
-			allowNull: true
-		},
-		item_uom: {
+		item_loc: {
 			type: DataTypes.STRING,
 			allowNull: true
 		},
