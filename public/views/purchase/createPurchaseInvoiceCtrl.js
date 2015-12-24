@@ -63,7 +63,6 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
            item_tax_per: 0
 	         });						
 		}
-		//console.log($scope.purchaseInvoiceModel.items);
 	}
 
 
@@ -85,8 +84,6 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 	$scope.grandTotal = function(){
 			var grandtotal = 0;
 			grandTotal = (($scope.totalPrice() || 0) - ($scope.purchaseInvoiceModel.discount_amt || 0));
-			// $scope.purchaseInvoiceModel.net_amount = grandTotal() || 0;
-			//$scope.purchaseInvoiceModel.net_amount = grandtotal;
 			console.log(grandTotal);
 			return grandtotal;
 	};
@@ -95,24 +92,11 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 //PurchaseInvoiceFactory
 
 		$scope.createPurchaseInvoice = function(){
-		
-		//console.log($scope.purchaseInvoiceModel.invoice_date);
-		//console.log($scope.purchaseInvoiceModel.supplier_invoice_date);
-		// var invoice_date = new Date($scope.purchaseInvoiceModel.invoice_date); 
-		// var supplier_invoice_date = new Date($scope.purchaseInvoiceModel.supplier_invoice_date); 
-		// $scope.purchaseInvoiceModel.invoice_date 					 = invoice_date.toLocaleDateString('en-GB');
-		// $scope.purchaseInvoiceModel.supplier_invoice_date  = supplier_invoice_date.toLocaleDateString('en-GB');
-		//console.log($scope.purchaseInvoiceModel.invoice_date );
-		//console.log($scope.purchaseInvoiceModel.supplier_invoice_date);
 			
 		PurchaseInvoiceFactory.create($scope.purchaseInvoiceModel)
 		.success(function(response){
 					console.log('PurCtrl', response);
 					toastr.success('Purchase Invoice added successfully');	
-				// 	$timeout(function(){
-				// 	console.log('TO');														
-				// 	$location.url("/supplierlist");
-				// }, 3000);
 					setTimeout("location.reload(true);", 600);						
 		})
 		.error(function(){
@@ -130,14 +114,11 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 
 	data_interlink = function(selectedRecord, index){
 			item_row = selectedRecord;
-			//console.log(selectedRecord);
-			//console.log('Interlink ---');
 			$scope.purchaseInvoiceModel.items[index].purchase_item_master_id = selectedRecord.id;
 			$scope.purchaseInvoiceModel.items[index].item_barcode = selectedRecord.item_barcode;
 			$scope.purchaseInvoiceModel.items[index].item_name = selectedRecord.item_name;
 			$scope.purchaseInvoiceModel.items[index].item_salesprice = selectedRecord.item_salesprice;
 			$scope.purchaseInvoiceModel.items[index].item_tax_per = selectedRecord.item_tax_per;
-			//console.log($scope.purchaseInvoiceModel.items[index]);
 	}
 
 	$('#supplier_name').autocomplete({
@@ -164,9 +145,6 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 		      	autoFocus: true,
 		      	minLength: 0,
 		      	select: function( event, ui ) {
-		      						//console.log(ui.item);
-											// var names = ui.item.data.split(",");						
-											//$('#id').val(ui.item.id);
 											$scope.purchaseInvoiceModel.supplier_id = ui.item.id;
 											$scope.purchaseInvoiceModel.name  = ui.item.value; //this is wrong, i was trying something
 											$scope.$apply();
@@ -201,31 +179,13 @@ $(document).on('focus','.autocomplete_txt',function(){
 		autoFocus: true,	      	
 		minLength: 0,
 		select: function( event, ui ) {
-			//console.log(ui);
-			//$scope.purchaseInvoiceModel.items.id = ui.item.id;
-			//$('#itemNo_'+element_id).val(names[0]);
-			//console.log($(this).attr('id'));
-			// var names = ui.item.data.split("|");						
 			id_arr = $(this).attr('id');
 	  	index = id_arr.split("_");
 	  	element_id = index[index.length-1]; //gives the index of the 
-	  	//console.log(ui.item.data.id);		
 	  	$('#item.purchase_item_costprice_0').val('1000');
 	  	$('#item.id_'+element_id).val(ui.item.data.id);
-	  	//console.log('#item.id_'+element_id);
-	  	//console.log(ui.item.data);
 	  	data_interlink(ui.item.data, element_id);
-			//items[index].id 				= ui.item.id;
-			//items[index].item_name  = ui.item.value; //this is wrong, i was trying something
-			//$scope.$apply();
-	  	//console.log('Index', element_id);
-	  	
-			// $('#itemNo_'+element_id).val(names[0]);
-			// $('#itemName_'+element_id).val(names[1]);
-			// $('#quantity_'+element_id).val(1);
-			// $('#price_'+element_id).val(names[2]);
-			// $('#total_'+element_id).val( 1*names[2] );
-			// calculateTotal();
+
 		}		      	
 	});
 });
