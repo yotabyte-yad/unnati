@@ -139,7 +139,6 @@ app.get("/item_detail", function (req, res){
 
 // PUT /item/:id
 app.put ('/item/:id', function(req, res){
-	//var supplierId = parseInt(req.params.id);
 	var body = _.pick(req.body, 'id','item_barcode', 'item_name', 'item_loc', 'item_description','item_current_stock',
 															'item_reorder_level', 'item_reorder_qty',  'item_costprice','item_salesprice', 'item_tax_per' );
 
@@ -186,7 +185,7 @@ app.get('/mfgs', function(req, res){
 			//console.log(mfgs);
 			res.json(mfgs);			
 	}, function(e){
-		res.status(500).send('Error in fetch (GET) all suppliers: ' + e);
+		res.status(500).send('Error in fetch (GET) all Manufacturers: ' + e);
 	});
 });	
 
@@ -271,7 +270,7 @@ app.get('/suppliers', function(req, res){
 		 where: where
 	})
 		.then(function(suppliers){
-		
+		//console.log(suppliers);
 		res.json(suppliers);		
 		//console.log(suppliers.description);
 	}, function(e){
