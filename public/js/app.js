@@ -186,7 +186,7 @@ app.config(function($routeProvider) {
 
 .config(function($datepickerProvider) {
   angular.extend($datepickerProvider.defaults, {
-    dateFormat: 'dd/MM/yyyy',
+    dateFormat: 'd/M/yyyy',
     startWeek: 1,
 	autoclose: true
   });
@@ -256,22 +256,6 @@ var FLOAT_REGEXP   = /^[0-9]+(\.[0-9]{1,2})?$/;
     };
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -3,8 +3,9 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 
 	//Test Purchase Invoi
 	$scope.purchaseInvoiceModel = {};
-	$scope.purchaseInvoiceModel.date = new Date();//global_currentDate;
-	console.log($scope.purchaseInvoiceModel.date);
+	$scope.purchaseInvoiceModel.invoice_date = new Date();//global_currentDate;
+	$scope.purchaseInvoiceModel.supplier_invoice_date  = new Date();
+	//console.log($scope.purchaseInvoiceModel.date);
 	$scope.purchaseInvoiceModel.gross_amount = 0;
 	$scope.purchaseInvoiceModel.net_amount = 0;
 	$scope.purchaseInvoiceModel.discount_amt = 0;
@@ -94,7 +95,16 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 //PurchaseInvoiceFactory
 
 		$scope.createPurchaseInvoice = function(){
-
+		
+		//console.log($scope.purchaseInvoiceModel.invoice_date);
+		//console.log($scope.purchaseInvoiceModel.supplier_invoice_date);
+		// var invoice_date = new Date($scope.purchaseInvoiceModel.invoice_date); 
+		// var supplier_invoice_date = new Date($scope.purchaseInvoiceModel.supplier_invoice_date); 
+		// $scope.purchaseInvoiceModel.invoice_date 					 = invoice_date.toLocaleDateString('en-GB');
+		// $scope.purchaseInvoiceModel.supplier_invoice_date  = supplier_invoice_date.toLocaleDateString('en-GB');
+		//console.log($scope.purchaseInvoiceModel.invoice_date );
+		//console.log($scope.purchaseInvoiceModel.supplier_invoice_date);
+			
 		PurchaseInvoiceFactory.create($scope.purchaseInvoiceModel)
 		.success(function(response){
 					console.log('PurCtrl', response);

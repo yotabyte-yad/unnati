@@ -6,8 +6,8 @@
           <div class="row">
             <!-- Put fields below -->
             <div class="form-group col-md-3">
-              <label class="control-label" for="date">Purchase Date</label>
-              <input class="form-control" id="date" type="text" ng-model="purchaseInvoiceModel.date" bs-datepicker></input>
+              <label class="control-label" for="invoice_date">Purchase Date</label>
+              <input class="form-control" id="invoice_date" type="text" ng-model="purchaseInvoiceModel.invoice_date" bs-datepicker=""></input>
             </div>
             <div class="form-group col-md-9">
               <label class="control-label" for="name">Name</label>
@@ -116,11 +116,11 @@
       </div>  
     </div>
 </div>   
-<!-- <pre>
+<pre>
   {{purchaseInvoiceModel | json}}
 </pre>
- -->
-// <script>
+
+<script>
   // $(function() {
   // 	$( "#date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
   // });
@@ -128,4 +128,4 @@
   // $(function() {
   //   $( "#supplier_invoice_date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
   // });
-// </script>
+ </script>

@@ -326,31 +326,47 @@ app.put ('/suppliers/:id', function(req, res){
 app.get('/purchaseinvoice', function(req, res){
 	//var query = req.query;
 	var where = {};
-		where.active = true;
-
-
-	db.suppliers.findAll({
+		//where.active = true;
+	db.purchases.findAll({
 		 where: where
 	})
-		.then(function(suppliers){
-		
-		res.json(suppliers);		
+		.then(function(purchaseInvoices){		
+		res.json(purchaseInvoices);		
 	}, function(e){
-		res.status(500).send('Error in Find all   :' + e);
+		res.status(500).send('Error in getching all purchases invoices   :' + e);
 	});
 
-});				
+});		
+
+//GET all the purchaseinvoice by joining with supplier
+app.get('/purchaseinvoicelist', function(req, res){
+		db.sequelize.query("select purchases.id, date, supplier_id, name, supplier_invoice_ref, discount_amt, gross_amount, remarks from purchases , suppliers where purchases.supplier_id = suppliers.id")
+			.then(function(invoices) {
+		  	//console.log(invoices[0]);
+		  	res.json(invoices[0]);
+		})
+
+	});			
 	
 //POST /purchaseinvoice
 //Fields in model - 'date','supplier_id','supplier_invoice_ref', 'discount_amt', 
 															//'gross_amount', 'net_amount','supplier_invoice_date','remarks'
 app.post('/purchaseinvoice', function(req, res){
 
-	var purchaseInvoiceHeader = _.pick(req.body, 'date','supplier_id','supplier_invoice_ref', 'discount_amt',
+	var purchaseInvoiceHeader = _.pick(req.body, 'invoice_date','supplier_id','supplier_invoice_ref', 'discount_amt',
 															'gross_amount', 'net_amount','supplier_invoice_date','remarks');
 	var purchaseInvoiceItems 	= _.pick(req.body,'items');
-	// console.log(purchaseInvoiceHeader);
-	// console.log(purchaseInvoiceItems);
+
+	//date format interchange
+		var l_invoice_date = new Date(purchaseInvoiceHeader.invoice_date); 
+		var l_supplier_invoice_date = new Date(purchaseInvoiceHeader.supplier_invoice_date); 
+		purchaseInvoiceHeader.invoice_date 					 = l_invoice_date.toLocaleDateString('en-GB');
+		purchaseInvoiceHeader.supplier_invoice_date  = l_supplier_invoice_date.toLocaleDateString('en-GB');
+
+	 	console.log(purchaseInvoiceHeader.invoice_date);
+		console.log(purchaseInvoiceHeader.supplier_invoice_date);
+
+
 	db.purchases.create(purchaseInvoiceHeader).then(function(header){
 			resBody = header;
 			purchase_id = header.id;

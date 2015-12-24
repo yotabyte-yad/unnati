@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
 
 	return sequelize.define('purchases', {
-		date: {
+		invoice_date: {
 			type: DataTypes.DATE,
 			allowNull: false
 		},

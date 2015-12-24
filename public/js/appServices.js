@@ -98,7 +98,7 @@ app.factory('PurchaseInvoiceFactory',['$http', function($http){
 	var urlBase = server + '/purchaseinvoice';
 
   getAll = function(){
-		return $http.get(urlBase);
+		return $http.get(server + '/purchaseinvoicelist');
 	};
 
 	create = function(purchaseModel) {

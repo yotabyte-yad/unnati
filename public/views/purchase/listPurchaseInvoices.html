@@ -1,0 +1,47 @@
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">List of Purchase Invoices</h3>
+  </div>
+  <div class="panel-body">
+      <form class = "form-inline well well-sm">
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" ng-model="search.name" placeholder="Search on name..." autocomplete="off" />
+        </div>
+      </form>
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr class="active">
+            <th class="col-lg-1">Supplier Code</th>
+            <th class="col-lg-4">Supplier Name
+                <span ng-click="order = 'name'" class="glyphicon glyphicon-menu-up"></span>
+                <span ng-click="order = '-name'" class="glyphicon glyphicon-menu-down"></span>
+            </th>
+            <th class="col-lg-1">TIN
+                <span ng-click="order = 'state'" class="glyphicon glyphicon-menu-up"></span>
+                <span ng-click="order = '-state'" class="glyphicon glyphicon-menu-down"></span>
+            </th>
+            <th class="col-lg-1">Contact</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="invoice in allPurchaseInvoices | filter:search  ">
+                  <td> {{invoice.id}} </td>
+                  <td>{{invoice.name}}</td>
+                  <td>{{invoice.gross_amount | currency: '&#8377' : 0}}</td>
+                  <td>{{invoice.date | date}}</td>
+                  <td>
+                    <button class="btn btn-success btn-sm" ng-click="goToEditScreen(invoice.id)">Edit</button>
+                  </td>
+          </tr>
+        </tbody>  
+      </table>  
+  <div>  
+</div>
+<pre>
+{{purchaseInvoiceModel}}
+</pre>      
+
+<script>
+    moment().format();
+</script>
