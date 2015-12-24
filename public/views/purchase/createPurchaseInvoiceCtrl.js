@@ -182,8 +182,8 @@ $(document).on('focus','.autocomplete_txt',function(){
 			id_arr = $(this).attr('id');
 	  	index = id_arr.split("_");
 	  	element_id = index[index.length-1]; //gives the index of the 
-	  	$('#item.purchase_item_costprice_0').val('1000');
-	  	$('#item.id_'+element_id).val(ui.item.data.id);
+	  	//$('#item.purchase_item_costprice_0').val('1000');
+	  	//$('#item.id_'+element_id).val(ui.item.data.id);
 	  	data_interlink(ui.item.data, element_id);
 
 		}		      	

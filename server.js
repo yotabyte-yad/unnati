@@ -369,94 +369,35 @@ app.post('/purchaseinvoice', function(req, res){
 	 	console.log(purchaseInvoiceHeader.invoice_date);
 		console.log(purchaseInvoiceHeader.supplier_invoice_date);
 
-		// "
+		db.purchases.create(purchaseInvoiceHeader).then(function(header){
+				resBody = header;
+				purchase_id = header.id;
+				//console.log(header.id);
 
-
-		// var insertquery = "INSERT INTO 'purchases' values ('invoice_date','supplier_id','supplier_invoice_ref','discount_amt','gross_amount','net_amount','supplier_invoice_date','remarks') VALUES('" +  
-		// ph.invoice_date + "'," 
-		// + ph.supplier_id + ",'" 
-		// + ph.supplier_invoice_ref + "'," 
-		// + ph.discount_amt + "," 
-		// + ph.gross_amount + "," 
-		// + ph.net_amount + ",'"
-		// + ph.supplier_invoice_date  
-		// + "','"
-		// + ph.remarks 
-		// + "')";
-
-		//console.log(insertquery);
-
-		//""
-
-
-				// db.sequelize.query(insertquery)
-    //    														.spread(function(results, metadata) {
-				// 						 						 		console.log(metadata);
-				// 						 						});
-
-										db.purchases.create(purchaseInvoiceHeader).then(function(header){
-												resBody = header;
-												purchase_id = header.id;
-												//console.log(header.id);
-
-												//Now saving the items on the purchaseInvoice
-												purchaseInvoiceItems.items.forEach(function(elem){
-														if(elem.purchase_item_purchase_qty != 0){
-															elem.purchase_id = 	purchase_id;
-															//console.log(elem);
-										     			db.purchase_details.create(elem).then(function(item){
-									       				//console.log(elem);	
-									       				//Increase the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
-									       				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock +" + elem.purchase_item_purchase_qty 
-									       																																				+ " WHERE id =" + elem.purchase_item_master_id)
-									       														.spread(function(results, metadata) {
-																			 						 //console.log(metadata);
-																			 						});
-									       			}, function(e){
-									       				res.status(400).json(e);
-									       				//console.log(e);
-									       			});
-														}
-												});
-												res.json('Success');
-										}, function(e){
-											res.status(400).json(e);
-											console.log(e);
-										});
-
-
-	
-
-	//db.sales.create(salesInvoiceHeader).then(function(header){
-	// 		resBody = header;
-	// 		//console.log(resBody);
-	// 		purchase_header_id = header.id;
-
-	// 	purchaseInvoiceItems.items.forEach(function(elem) {
- //        if (elem.quantity != 0) {
-
- //        	  elem.purchase_id = purchase_header_id;
- //      			console.log('Each purchased item', elem);
-      			
- //      			db.purchase_details.create(elem).then(function(item){
- //      				//console.log(elem);	
- //      				//Reduce the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
- //      				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock -" + elem.quantity + " WHERE id = 10000004").spread(function(results, metadata) {
-	// 						 //console.log(metadata);
-	// 						});
-
- //      			}, function(e){
- //      				res.status(400).json(e);
- //      				//console.log(e);
- //      			});
- //        }
- //    });	
-
-		//console.log(header.id);
-	// }, function(e){
-	// 	console.log('error: ', e);
-	// });
-
+				//Now saving the items on the purchaseInvoice
+				purchaseInvoiceItems.items.forEach(function(elem){
+						if(elem.purchase_item_purchase_qty != 0){
+							elem.purchase_id = 	purchase_id;
+							//console.log(elem);
+		     			db.purchase_details.create(elem).then(function(item){
+	       				//console.log(elem);	
+	       				//Increase the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
+	       				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock +" + elem.purchase_item_purchase_qty 
+	       																																				+ " WHERE id =" + elem.purchase_item_master_id)
+	       														.spread(function(results, metadata) {
+											 						 //console.log(metadata);
+											 						});
+	       			}, function(e){
+	       				res.status(400).json(e);
+	       				//console.log(e);
+	       			});
+						}
+				});
+				res.json('Success');
+		}, function(e){
+			res.status(400).json(e);
+			console.log(e);
+		});
 });
 
 
@@ -507,7 +448,7 @@ app.get('/salesinvoice', function(req, res){
 //Fields in model - date, Buyer Name, Prescribing Doctor Name, Discount, Net Amount, Gross Amount
 app.post('/salesinvoice', function(req, res){
 	//var salesInvoice = _.pick(req.body, 'date', 'buyer', 'doctor', 'discount_amt', 'net_amount','items');
-	var salesInvoiceHeader = _.pick(req.body, 'date', 'buyer', 'doctor', 'discount_amt', 'net_amount');
+	var salesInvoiceHeader = _.pick(req.body, 'sales_date', 'buyer', 'doctor', 'discount_amt', 'net_amount');
 	var salesInvoiceItems = _.pick(req.body,'items');
 	var billNo = undefined;
 	var resBody = {};

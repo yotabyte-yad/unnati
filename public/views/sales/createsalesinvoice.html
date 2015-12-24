@@ -14,11 +14,11 @@
                          value="" disabled>
               </div> 
               <div class="col-md-3">
-                <label class="control-label" for="invoice_date"><b>Date</b></label>
+                <label class="control-label" for="sales_date"><b>Date</b></label>
                 <input type="text"
                        class="form-control" 
                        id="invoice_date"  
-                       ng-model = "salesInvoiceModel.invoice_date"
+                       ng-model = "salesInvoiceModel.sales_date"
                        bs-datepicker="">
               </div> 
               <div class="col-md-7">
@@ -52,7 +52,7 @@
               <tr ng-repeat = "item in salesInvoiceModel.items">
                 <td style="text-align:center" id="item.sales_item_master_id_{{$index}}">{{item.sales_item_master_id}}</td>
                 <td><input class="form-control input-sm" ng-model="item.item_barcode" ng-keypress="addItem()" id="item.item_barcode_{{$index}}"></td>
-                <td><input class="form-control input-sm" ng-model="item.item_name" ng-keypress="addItem()" id="item.item_name_{{$index}}"></td>
+                <td><input class="form-control input-sm autocomplete_txt" ng-model="item.item_name" ng-keypress="addItem()" id="item.item_name_{{$index}}"></td>
                 <td style="text-align:center"><input class="form-control input-sm" ng-model="item.sales_item_purchase_qty" id="item.sales_item_purchase_qty_{{$index}}">
                 </td>
                 <td style="text-align:center" id="item.item_sales_price_{{$index}}">{{item.item_sales_price}}</td>
