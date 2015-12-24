@@ -4,8 +4,23 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 	//Test Purchase Invoi
 	$scope.purchaseInvoiceModel = {};
 	$scope.purchaseInvoiceModel.date = global_currentDate;
-	//console.log('model date', $scope.purchaseInvoiceModel.date);
+	$scope.purchaseInvoiceModel.gross_amount = 0;
+	$scope.purchaseInvoiceModel.net_amount = 0;
+	$scope.purchaseInvoiceModel.discount_amt = 0;
+
 	$scope.purchaseInvoiceModel.items = [];
+
+	$scope.purchaseInvoiceModel.items.push({
+	         purchase_item_master_id:undefined,
+           item_barcode:undefined,
+           item_name:undefined,
+           purchase_item_purchase_qty:0,
+           purchase_item_costprice:0,
+           item_salesprice: 0,
+           item_tax_per: 0
+	         });						
+
+
 	$scope.dummypurchaseInvoiceModel = {"items":[{"itemname":"dojo","quantity":"1","sch":false,
 														"mfg":"","batch":"","expdate":"","price":100,"amount":""},
 																		{"itemname":"crocin","quantity":"2","sch":false,
@@ -37,7 +52,7 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 
 		if(blank == 0){
 			$scope.purchaseInvoiceModel.items.push({
-	         item_id:undefined,
+	         purchase_item_master_id:undefined,
            item_barcode:undefined,
            item_name:undefined,
            purchase_item_purchase_qty:0,
@@ -60,13 +75,17 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 			for(count=0;count<$scope.purchaseInvoiceModel.items.length;count++){
 				subtotal += (($scope.purchaseInvoiceModel.items[count].purchase_item_costprice || 0) * ($scope.purchaseInvoiceModel.items[count].purchase_item_purchase_qty || 0));
 			}
+			$scope.purchaseInvoiceModel.gross_amount = subtotal;
+			$scope.purchaseInvoiceModel.net_amount = subtotal - $scope.purchaseInvoiceModel.discount_amt;
 			return subtotal;
 	};
 
 	$scope.grandTotal = function(){
 			var grandtotal = 0;
 			grandTotal = (($scope.totalPrice() || 0) - ($scope.purchaseInvoiceModel.discount_amt || 0));
-			$scope.purchaseInvoiceModel.net_amount = $scope.grandTotal() || 0;
+			// $scope.purchaseInvoiceModel.net_amount = grandTotal() || 0;
+			//$scope.purchaseInvoiceModel.net_amount = grandtotal;
+			console.log(grandTotal);
 			return grandtotal;
 	};
 
@@ -77,14 +96,14 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 
 	data_interlink = function(selectedRecord, index){
 			item_row = selectedRecord;
-			console.log(selectedRecord);
-			console.log('Interlink ---');
-			$scope.purchaseInvoiceModel.items[index].item_id = selectedRecord.id;
+			//console.log(selectedRecord);
+			//console.log('Interlink ---');
+			$scope.purchaseInvoiceModel.items[index].purchase_item_master_id = selectedRecord.id;
 			$scope.purchaseInvoiceModel.items[index].item_barcode = selectedRecord.item_barcode;
 			$scope.purchaseInvoiceModel.items[index].item_name = selectedRecord.item_name;
 			$scope.purchaseInvoiceModel.items[index].item_salesprice = selectedRecord.item_salesprice;
 			$scope.purchaseInvoiceModel.items[index].item_tax_per = selectedRecord.item_tax_per;
-			console.log($scope.purchaseInvoiceModel.items[index]);
+			//console.log($scope.purchaseInvoiceModel.items[index]);
 	}
 
 	$('#supplier_name').autocomplete({
