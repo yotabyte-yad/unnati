@@ -110,14 +110,15 @@
     </div>
   </div>
 </div>   
-<!-- <pre>
-{{purchaseInvoiceModel | json}}
-</pre> -->
+<pre>
+  {{purchaseInvoiceModel | json}}
+</pre>
 
 <script>
   $(function() {
   	$( "#date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
   });
+
   $(function() {
     $( "#supplier_invoice_date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
   });

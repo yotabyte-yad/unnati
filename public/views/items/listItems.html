@@ -11,7 +11,8 @@
       <table class="table table-bordered table-condensed">
         <thead>
           <tr class="active">
-            <th class="col-lg-2">Item Code</th>
+            <th class="col-lg-1">Item Code</th>
+            <th class="col-lg-1">Barcode</th>
             <th class="col-lg-5">Name
                 <span ng-click="order = 'item_name'" class="glyphicon glyphicon-menu-up"></span>
                 <span ng-click="order = '-item_name'" class="glyphicon glyphicon-menu-down"></span>
@@ -28,6 +29,7 @@
         <tbody>
           <tr ng-repeat="item in allItems | filter:search  ">
                   <td>{{item.id}} </td>
+                  <td>{{item.item_barcode}} </td>
                   <td>{{item.item_name}}</td>
                   <td>{{item.item_current_stock}}</td>
                   <td>{{item.item_loc}}</td>

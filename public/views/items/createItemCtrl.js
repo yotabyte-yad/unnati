@@ -11,7 +11,7 @@ app.controller("createItemCtrl", function ($timeout, $location, $scope, $http, I
 				.success(function(response){
 					toastr.success('Item added successfully to the system');	
 					$timeout(function(){														
-					$location.url("/listItems"); //go to the list of items
+					$location.url("/createItem"); //go to the list of items
 				}, 3000);						
 		})
 		.error(function(){
