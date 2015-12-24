@@ -1,8 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
 
-	return sequelize.define('sales2', {
-		date: {
-			type: DataTypes.DATE,
+	return sequelize.define('sales', {
+		sales_date: {
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		buyer: {
