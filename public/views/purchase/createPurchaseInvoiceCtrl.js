@@ -1,4 +1,4 @@
-app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufacturers, $timeout){
+app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, PurchaseInvoiceFactory, $timeout){
 	//TODO
 
 	//Test Purchase Invoi
@@ -88,6 +88,26 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Manufac
 			console.log(grandTotal);
 			return grandtotal;
 	};
+
+
+//PurchaseInvoiceFactory
+
+		$scope.createPurchaseInvoice = function(){
+
+		PurchaseInvoiceFactory.create($scope.purchaseInvoiceModel)
+		.success(function(response){
+					toastr.success('Purchase Invoice added successfully');	
+					$timeout(function(){														
+					$location.url("/createpurchaseinvoice");
+				}, 3000);						
+		})
+		.error(function(){
+			console.log('Error while adding the Purchase Invoice');
+			toastr.error('<b>Seems there is an issue </b>');
+		});		
+	};
+
+
 
 
 

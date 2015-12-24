@@ -346,66 +346,49 @@ app.get('/purchaseinvoice', function(req, res){
 															//'gross_amount', 'net_amount','supplier_invoice_date','remarks'
 app.post('/purchaseinvoice', function(req, res){
 
-	// var salesInvoiceHeader = _.pick(req.body, 'date', 'buyer', 'doctor', 'discount_amt', 'net_amount');
-	// var salesInvoiceItems = _.pick(req.body,'items');
-
 	var purchaseInvoiceHeader = _.pick(req.body, 'date','supplier_id','supplier_invoice_ref', 'discount_amt',
 															'gross_amount', 'net_amount','supplier_invoice_date','remarks');
-	var purchaseInvoiceItems = _.pick(req.body,'items');
+	var purchaseInvoiceItems 	= _.pick(req.body,'items');
 
-	db.purchases.create(purchaseInvoiceHeader).then(function(header){
-		//res.json(supplier.toJSON());
-			resBody = header;
-			//console.log(resBody);
-			billNo = header.id;
-
-	}, function(e){
-		res.status(400).json(e);
-		console.log(e);
-	});
-
-
-	db.sales.create(salesInvoiceHeader).then(function(header){
-			resBody = header;
-			//console.log(resBody);
-			purchase_header_id = header.id;
-
-		purchaseInvoiceItems.items.forEach(function(elem) {
-        if (elem.quantity != 0) {
-
-        	  elem.purchase_id = purchase_header_id;
-      			console.log('Each purchased item', elem);
-      			
-      			db.purchase_details.create(elem).then(function(item){
-      				//console.log(elem);	
-      				//Reduce the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
-      				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock -" + elem.quantity + " WHERE id = 10000004").spread(function(results, metadata) {
-							 //console.log(metadata);
-							});
-
-      			}, function(e){
-      				res.status(400).json(e);
-      				//console.log(e);
-      			});
-        }
-    });	
-
-		//console.log(header.id);
-	}, function(e){
-		console.log('error: ', e);
-	});
-
-	//body.name = body.name.trim();
-	//body.address = body.address.trim();
-	//body.state = body.state.trim();
-	//body.pincode = body.pincode.trim();
-	//console.log(body);
-	
-	// db.suppliers.create(body).then(function(supplier){
-	// 	res.json(supplier.toJSON());
+	console.log(purchaseInvoiceHeader);
+	console.log(purchaseInvoiceItems);
+	// db.purchases.create(purchaseInvoiceHeader).then(function(header){
+	// 		resBody = header;
+	// 		billNo = header.id;
 	// }, function(e){
 	// 	res.status(400).json(e);
 	// 	console.log(e);
+	// });
+
+
+	// db.sales.create(salesInvoiceHeader).then(function(header){
+	// 		resBody = header;
+	// 		//console.log(resBody);
+	// 		purchase_header_id = header.id;
+
+	// 	purchaseInvoiceItems.items.forEach(function(elem) {
+ //        if (elem.quantity != 0) {
+
+ //        	  elem.purchase_id = purchase_header_id;
+ //      			console.log('Each purchased item', elem);
+      			
+ //      			db.purchase_details.create(elem).then(function(item){
+ //      				//console.log(elem);	
+ //      				//Reduce the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
+ //      				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock -" + elem.quantity + " WHERE id = 10000004").spread(function(results, metadata) {
+	// 						 //console.log(metadata);
+	// 						});
+
+ //      			}, function(e){
+ //      				res.status(400).json(e);
+ //      				//console.log(e);
+ //      			});
+ //        }
+ //    });	
+
+		//console.log(header.id);
+	// }, function(e){
+	// 	console.log('error: ', e);
 	// });
 
 });
