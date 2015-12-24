@@ -349,19 +349,42 @@ app.post('/purchaseinvoice', function(req, res){
 	var purchaseInvoiceHeader = _.pick(req.body, 'date','supplier_id','supplier_invoice_ref', 'discount_amt',
 															'gross_amount', 'net_amount','supplier_invoice_date','remarks');
 	var purchaseInvoiceItems 	= _.pick(req.body,'items');
+	// console.log(purchaseInvoiceHeader);
+	// console.log(purchaseInvoiceItems);
+	db.purchases.create(purchaseInvoiceHeader).then(function(header){
+			resBody = header;
+			purchase_id = header.id;
+			//console.log(header.id);
 
-	console.log(purchaseInvoiceHeader);
-	console.log(purchaseInvoiceItems);
-	// db.purchases.create(purchaseInvoiceHeader).then(function(header){
-	// 		resBody = header;
-	// 		billNo = header.id;
-	// }, function(e){
-	// 	res.status(400).json(e);
-	// 	console.log(e);
-	// });
+			//Now saving the items on the purchaseInvoice
+			purchaseInvoiceItems.items.forEach(function(elem){
+					if(elem.purchase_item_purchase_qty != 0){
+						elem.purchase_id = 	purchase_id;
+						//console.log(elem);
+	     			db.purchase_details.create(elem).then(function(item){
+       				//console.log(elem);	
+       				//Increase the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
+       				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock +" + elem.purchase_item_purchase_qty 
+       																																				+ " WHERE id =" + elem.purchase_item_master_id)
+       														.spread(function(results, metadata) {
+										 						 //console.log(metadata);
+										 						});
+       			}, function(e){
+       				res.status(400).json(e);
+       				//console.log(e);
+       			});
+					}
+			});
+			res.json('Success');
+	}, function(e){
+		res.status(400).json(e);
+		console.log(e);
+	});
 
 
-	// db.sales.create(salesInvoiceHeader).then(function(header){
+	
+
+	//db.sales.create(salesInvoiceHeader).then(function(header){
 	// 		resBody = header;
 	// 		//console.log(resBody);
 	// 		purchase_header_id = header.id;

@@ -95,14 +95,14 @@ app.factory('SalesInvoiceFactory',['$http', function($http){
 app.factory('PurchaseInvoiceFactory',['$http', function($http){
 	// variable stores one supplier record, useful during editing
 	var purchaseInvoice = {};
-  var urlBase = server + '/purchaseinvoice';
+	var urlBase = server + '/purchaseinvoice';
 
   getAll = function(){
 		return $http.get(urlBase);
 	};
 
 	create = function(purchaseModel) {
-		console.log('appServicesCreate', purchaseModel);
+		//console.log('PurchaseInvoiceFactoryCreate', purchaseModel);
 		return $http.post(urlBase, purchaseModel);
 	};
 

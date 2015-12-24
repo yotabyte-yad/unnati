@@ -5,11 +5,11 @@
         <div class="form-group col-md-12" >
           <div class="row">
             <!-- Put fields below -->
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label class="control-label" for="date">Purchase Date</label>
-              <input class="form-control" id="date" type="text" ng-model="purchaseInvoiceModel.date" ></input>
+              <input class="form-control" id="date" type="text" ng-model="purchaseInvoiceModel.date" bs-datepicker></input>
             </div>
-            <div class="form-group col-md-10">
+            <div class="form-group col-md-9">
               <label class="control-label" for="name">Name</label>
               <input class="form-control" id="supplier_name" ng-model="purchaseInvoiceModel.name" type="text">
             </div>
@@ -17,15 +17,15 @@
               <!-- <label class="control-label" for="supplier_id">Code</label> -->
               <input class="form-control hidden" id="supplier_id" type="text" disabled ng-model="purchaseInvoiceModel.supplier_id"></input>
             <!-- </div> -->
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label class="control-label" for="supplier_invoice_date">Invoice Date</label>
-              <input class="form-control" id="supplier_invoice_date" type="text" ng-model="purchaseInvoiceModel.supplier_invoice_date" ></input>
+              <input class="form-control" id="supplier_invoice_date" type="text" ng-model="purchaseInvoiceModel.supplier_invoice_date"  bs-datepicker></input>
             </div>
             <div class="form-group col-md-2">
               <label class="control-label" for="supplier_invoice_ref">Invoice Ref #</label>
               <input class="form-control" id="supplier_invoice_ref" type="text" ng-model="purchaseInvoiceModel.supplier_invoice_ref" ></input>
             </div>
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-7">
               <label class="control-label" for="remarks">Remarks</label>
               <input class="form-control" id="remarks" ng-model="purchaseInvoiceModel.remarks" type="text">
             </div>
@@ -116,16 +116,16 @@
       </div>  
     </div>
 </div>   
-<pre>
+<!-- <pre>
   {{purchaseInvoiceModel | json}}
 </pre>
+ -->
+// <script>
+  // $(function() {
+  // 	$( "#date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
+  // });
 
-<script>
-  $(function() {
-  	$( "#date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
-  });
-
-  $(function() {
-    $( "#supplier_invoice_date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
-  });
-</script>
+  // $(function() {
+  //   $( "#supplier_invoice_date" ).datepicker({dateFormat: 'dd/mm/yy'}).datepicker('setDate', 'today');
+  // });
+// </script>

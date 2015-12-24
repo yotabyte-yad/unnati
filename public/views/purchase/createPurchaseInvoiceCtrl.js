@@ -3,7 +3,8 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 
 	//Test Purchase Invoi
 	$scope.purchaseInvoiceModel = {};
-	$scope.purchaseInvoiceModel.date = global_currentDate;
+	$scope.purchaseInvoiceModel.date = new Date();//global_currentDate;
+	console.log($scope.purchaseInvoiceModel.date);
 	$scope.purchaseInvoiceModel.gross_amount = 0;
 	$scope.purchaseInvoiceModel.net_amount = 0;
 	$scope.purchaseInvoiceModel.discount_amt = 0;
@@ -96,16 +97,19 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 
 		PurchaseInvoiceFactory.create($scope.purchaseInvoiceModel)
 		.success(function(response){
+					console.log('PurCtrl', response);
 					toastr.success('Purchase Invoice added successfully');	
-					$timeout(function(){														
-					$location.url("/createpurchaseinvoice");
-				}, 3000);						
+				// 	$timeout(function(){
+				// 	console.log('TO');														
+				// 	$location.url("/supplierlist");
+				// }, 3000);
+					setTimeout("location.reload(true);", 600);						
 		})
 		.error(function(){
 			console.log('Error while adding the Purchase Invoice');
 			toastr.error('<b>Seems there is an issue </b>');
-		});		
-	};
+		});
+};
 
 
 
