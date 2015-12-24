@@ -1,25 +1,25 @@
 app.controller("createSalesInvoiceCtrl", function ($scope, $templateCache, $http, SalesInvoiceFactory){
 
-var localDate = new Date(2015, 11, 32); 
 
-$scope.dummySalesInvoiceModel = {"items":[{ "item_id":"10000000", "itemname":"dolo","quantity":"1","sch":false,"mfg":"","batch":"","expdate":"","price":100,"amount":""},
-                                          { "item_id":"10000001", "itemname":"crocin","quantity":"2","sch":false,"mfg":"","batch":"","expdate":"","price":100,"amount":""},
-                                          {"quantity":0,"sch":false,"mfg":"","batch":"","expdate":"","price":100,"amount":""}
-                                         ],
-																 "discount_amt":"200",
-																 "date": localDate.toJSON(),
-																 "buyer":"Test Patient",
-																 "doctor":"Test Prescribing Doctor",
-																 "net_amount": "6000"
-																};
+
+// $scope.dummySalesInvoiceModel = {"items":[{ "item_id":"10000000", "itemname":"dolo","quantity":"1","sch":false,"mfg":"","batch":"","expdate":"","price":100,"amount":""},
+//                                           { "item_id":"10000001", "itemname":"crocin","quantity":"2","sch":false,"mfg":"","batch":"","expdate":"","price":100,"amount":""},
+//                                           {"quantity":0,"sch":false,"mfg":"","batch":"","expdate":"","price":100,"amount":""}
+//                                          ],
+// 																 "discount_amt":"200",
+// 																 "date": localDate.toJSON(),
+// 																 "buyer":"Test Patient",
+// 																 "doctor":"Test Prescribing Doctor",
+// 																 "net_amount": "6000"
+// 																};
 
 //console.log(localDate.toJSON());
-$scope.dummySalesInvoiceModel.net_amount = 6000;
+//$scope.dummySalesInvoiceModel.net_amount = 6000;
 $scope.salesInvoiceModel = {};
 
 	//Invoice header
 	$scope.salesInvoiceModel.billno = 0;
-	$scope.salesInvoiceModel.date;
+	$scope.salesInvoiceModel.invoice_date = new Date();
 	$scope.salesInvoiceModel.patient;
 	$scope.salesInvoiceModel.doctor;
 
@@ -37,28 +37,35 @@ $scope.salesInvoiceModel = {};
 	$scope.salesInvoiceModel.grossAmount = 0;
 	$scope.salesInvoiceModel.netAmount = 0;
 
+	$scope.salesInvoiceModel.items.push({
+	         sales_item_master_id:undefined,
+	         item_barcode: undefined,
+	         item_name:undefined,
+	         sales_item_purchase_qty:0,
+	         sales_tax_per: 0,
+	         item_sales_price: 0
+	         });		
+
 	$scope.addItem = function(){
 		
 		//Add blank row only if there are less than 1 blank row remaining
 		//no point in adding blank rows if 2 of them already exists
+
 		var blank = 0;
 		for(count=0;count < $scope.salesInvoiceModel.items.length;count++){
-			if($scope.salesInvoiceModel.items[count].itemname === undefined) {
+			if($scope.salesInvoiceModel.items[count].item_name === undefined) {
 				blank += blank + 1
 			}			
 		}
 
 		if(blank == 0){
 			$scope.salesInvoiceModel.items.push({
-	         item_id:10000000,
-	         itemname:undefined,
-	         quantity:0,
-	         sch: false,
-	         mfg: '',
-	         batch: '',
-	         expdate: '',
-	         price: 100,
-	         amount: ''
+	         sales_item_master_id:undefined,
+	         item_barcode: undefined,
+	         item_name:undefined,
+	         sales_item_purchase_qty:0,
+	         sales_tax_per: 0,
+	         item_sales_price: 0
 	         });						
 		}
 		//console.log($scope.billModel.items);
