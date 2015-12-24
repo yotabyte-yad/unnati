@@ -4,10 +4,12 @@ app.controller("listPurchaseInvoicesCtrl", function ($location, $scope, Purchase
 	$scope.allPurchaseInvoices = [];
 	$scope.search = {};
 	console.log('Now executing GetAllData');
+	
 	$scope.GetAllData = function () {
 	  PurchaseInvoiceFactory.getAll()
 	  .success(function (data, status, headers, config) {
 	      $scope.allPurchaseInvoices = data;
+
 	      console.log($scope.allPurchaseInvoices);
 	      //console.log();       
 	  })

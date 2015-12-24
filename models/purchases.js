@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataTypes) {
 
 	return sequelize.define('purchases', {
 		invoice_date: {
-			type: DataTypes.DATE,
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		supplier_id: {
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true
 		},
 		supplier_invoice_date: {
-			type: DataTypes.DATE,
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		remarks: {

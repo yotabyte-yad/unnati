@@ -29,7 +29,7 @@
                   <td> {{invoice.id}} </td>
                   <td>{{invoice.name}}</td>
                   <td>{{invoice.gross_amount | currency: '&#8377' : 0}}</td>
-                  <td>{{invoice.date | date}}</td>
+                  <td>{{invoice.invoice_date | date}}</td>
                   <td>
                     <button class="btn btn-success btn-sm" ng-click="goToEditScreen(invoice.id)">Edit</button>
                   </td>
