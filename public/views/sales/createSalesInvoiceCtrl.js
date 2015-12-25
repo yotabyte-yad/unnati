@@ -1,4 +1,4 @@
-app.controller("createSalesInvoiceCtrl", function ($scope, $templateCache, $http, SalesInvoiceFactory){
+app.controller("createSalesInvoiceCtrl", function ($scope, $templateCache, $http, SalesInvoiceFactory, $timeout, $location){
 
 
 
@@ -36,7 +36,7 @@ $scope.salesInvoiceModel = {};
 		var blank = 0;
 		for(count=0;count < $scope.salesInvoiceModel.items.length;count++){
 			if($scope.salesInvoiceModel.items[count].item_name === undefined) {
-				console.log($scope.salesInvoiceModel.items[count].item_name);
+				//console.log($scope.salesInvoiceModel.items[count].item_name);
 				blank += blank + 1;
 			}			
 		}

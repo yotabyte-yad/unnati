@@ -20,6 +20,7 @@ var createItemInDB = require("./crud.js").createItemInDB;
 
 var dateFormat = require('dateformat');
 var printer = require('printer');
+var globalBillDetails = {};
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json()); // for parsing application/json
@@ -81,18 +82,60 @@ app.post("/login", upload.array(), passport.authenticate('local'), function (req
 		var address_line2		= '                      0832-000000'  + '\n';
 		var header          = ' ITEM                        Qty 	Rate      Value' + '\n';
 
-    fs.writeFile('salesInvoice.txt', seperator + company_name + seperator + address_line1 + address_line2 + header
+
+		// var info = fs.readFileSync('serverjsback.js').toString();
+		// console.log(info);
+		// function sendPrint() {
+		//   printer.printDirect({
+		//     data: info,
+		//     type: 'RAW',
+		//     success: function (jobID) {
+		//       console.log("ID: " + jobID);
+		//     },
+		//     error: function (err) {
+		//       console.log('printer module error: '+err);
+		//       throw err;
+		//     }
+		//   });
+		// }
+
+		// sendPrint();
+
+		var printBill = function() {
+			var printItems = '';
+
+					globalBillDetails.items.forEach(function(elem){
+						console.log(elem);
+						printItems += elem.item_name + '       '
+										+ '  ' + elem.sales_item_purchase_qty 
+										+ '  ' + elem.item_sales_price 
+									    + '  ' +((elem.sales_item_purchase_qty * elem.item_sales_price ) || 0) + '\n';
+					});
+					console.log(printItems);
+				    fs.writeFile('bill.txt', seperator + company_name + seperator + address_line1 + address_line2 
+				    	+ header + printItems
+				    ,function (err) {
+				        if (err) throw err;
+				        console.log('Its saved! in same location.');
+				    });
+
+					require('child_process').exec(__dirname + "/file.bat", function (err, stdout, stderr) {
+					    if (err) {
+					        // Ooops.
+					        // console.log(stderr);
+					        return console.log(err);
+					    }
+
+					    // Done.
+					    console.log(stdout);
+					});
+
+		}
 
 
-    ,function (err) {
-        if (err) throw err;
-        console.log('Its saved! in same location.');
-    });
-
-
-
+   //    console.log(printer.getDefaultPrinterName());
 	  // printer.printFile({filename:'salesInvoice.txt',
-	  //   printer: process.env[3], // printer name, if missing then will print to default printer
+	  //   printer: printer.getDefaultPrinterName(), // printer name, if missing then will print to default printer
 	  //   success:function(jobID){
 	  //     console.log("sent to printer with ID: "+jobID);
 	  //   },
@@ -101,15 +144,15 @@ app.post("/login", upload.array(), passport.authenticate('local'), function (req
 	  //   }
 	  // });
 
-		printer.printDirect({data:fs.readFileSync('server.js'),
-		    printer: process.env[3], // printer name, if missing then will print to default printer
-		    success:function(jobID){
-		      console.log("sent to printer with ID: "+jobID);
-		    },
-		    error:function(err){
-		      console.log(err);
-		    }
-		  });
+		// printer.printDirect({data:fs.readFileSync('server.js'),
+		//     printer: process.env[3], // printer name, if missing then will print to default printer
+		//     success:function(jobID){
+		//       console.log("sent to printer with ID: "+jobID);
+		//     },
+		//     error:function(err){
+		//       console.log(err);
+		//     }
+		//   });
   ///Extracting Item values in request body
 
 app.post('/item', function(req, res){
@@ -134,6 +177,8 @@ app.post('/item', function(req, res){
 
 //GET - Fetch all the items
 app.get('/item', function(req, res){
+
+	//printBill();
 	var query = req.query;
 	var where = {};
 		//where.active = true;
@@ -404,8 +449,8 @@ app.post('/purchaseinvoice', function(req, res){
 
 		var ph = purchaseInvoiceHeader;
 
-	 	console.log(purchaseInvoiceHeader.invoice_date);
-		console.log(purchaseInvoiceHeader.supplier_invoice_date);
+	 	//console.log(purchaseInvoiceHeader.invoice_date);
+		//console.log(purchaseInvoiceHeader.supplier_invoice_date);
 
 		db.purchases.create(purchaseInvoiceHeader).then(function(header){
 				resBody = header;
@@ -421,10 +466,10 @@ app.post('/purchaseinvoice', function(req, res){
 	       				//console.log(elem);	
 	       				//Increase the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
 	       				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock +" + elem.purchase_item_purchase_qty 
-	       																																				+ " WHERE id =" + elem.purchase_item_master_id)
-	       														.spread(function(results, metadata) {
-											 						 //console.log(metadata);
-											 						});
+	       									+ " WHERE id =" + elem.purchase_item_master_id)
+												.spread(function(results, metadata) {
+						 						 //console.log(metadata);
+						 						});
 	       			}, function(e){
 	       				res.status(400).json(e);
 	       				//console.log(e);
@@ -488,8 +533,9 @@ app.post('/salesinvoice', function(req, res){
 	var salesInvoiceHeader = _.pick(req.body, 'sales_date', 'buyer', 'discount_amt', 'net_amount','gross_amount');
 	var salesInvoiceItems = _.pick(req.body,'items');
 
-	var l_sales_date						 = new Date(salesInvoiceHeader.sales_date); 
-	salesInvoiceHeader.sales_date  = dateFormat(l_sales_date, "dd/mm/yyyy"); 
+	var l_sales_date			   = new Date(salesInvoiceHeader.sales_date); 
+	salesInvoiceHeader.sales_date  = dateFormat(l_sales_date, "dd/mm/yyyy");
+	//globalBillDetails.sales_date   =  salesInvoiceHeader.sales_date;
 
 	var billNo = undefined;
 	var resBody = {};
@@ -498,6 +544,10 @@ app.post('/salesinvoice', function(req, res){
 			resBody = header;
 			//console.log(resBody);
 			billNo = header.id;
+
+			globalBillDetails.billNo     = header.id;
+			globalBillDetails.sales_date = header.sales_date;
+			globalBillDetails.items      = salesInvoiceItems.items;  
 
 		salesInvoiceItems.items.forEach(function(elem) {
         if (elem.sales_item_purchase_qty != 0) {
@@ -512,6 +562,8 @@ app.post('/salesinvoice', function(req, res){
       																							+ " WHERE id =" + elem.sales_item_master_id)
       				.spread(function(results, metadata) {
 							 //console.log(metadata);
+							 console.log(globalBillDetails);
+							 printBill();							 
 							});
 
       			}, function(e){
@@ -520,10 +572,12 @@ app.post('/salesinvoice', function(req, res){
       			});
         }
     });	
-
+		//printBill();	
+		res.json('Success');
 		//console.log(header.id);
 	}, function(e){
-		console.log('error: ', e);
+		res.status(400).json(e);
+		console.log(e);
 	});
 });
 
