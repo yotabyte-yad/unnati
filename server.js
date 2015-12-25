@@ -483,19 +483,16 @@ app.get('/salesinvoice', function(req, res){
 });				
 	
 //POST /salesinvoice
-//Fields in model - date, Buyer Name, Prescribing Doctor Name, Discount, Net Amount, Gross Amount
+
 app.post('/salesinvoice', function(req, res){
-	//var salesInvoice = _.pick(req.body, 'date', 'buyer', 'doctor', 'discount_amt', 'net_amount','items');
-	var salesInvoiceHeader = _.pick(req.body, 'sales_date', 'buyer', 'doctor', 'discount_amt', 'net_amount');
+	var salesInvoiceHeader = _.pick(req.body, 'sales_date', 'buyer', 'discount_amt', 'net_amount','gross_amount');
 	var salesInvoiceItems = _.pick(req.body,'items');
+
+	var l_sales_date						 = new Date(salesInvoiceHeader.sales_date); 
+	salesInvoiceHeader.sales_date  = dateFormat(l_sales_date, "dd/mm/yyyy"); 
+
 	var billNo = undefined;
 	var resBody = {};
-	//console.log(req.body);
-	//console.log('salesInvoiceHeader');
-	//console.log(salesInvoiceHeader);
-
-	//console.log(typeof(salesInvoice.items));
-	//console.log(salesInvoiceHeader);
 
 	db.sales.create(salesInvoiceHeader).then(function(header){
 			resBody = header;
@@ -503,7 +500,7 @@ app.post('/salesinvoice', function(req, res){
 			billNo = header.id;
 
 		salesInvoiceItems.items.forEach(function(elem) {
-        if (elem.quantity != 0) {
+        if (elem.sales_item_purchase_qty != 0) {
         	  //elem.id = billNo;
         	  elem.sales_id = billNo;
       			//console.log('Each item', elem);
@@ -512,7 +509,7 @@ app.post('/salesinvoice', function(req, res){
       				//console.log(elem);	
       				//Reduce the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
       				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock -" + elem.sales_item_purchase_qty 
-      																							+ " WHERE id =" + elem.purchase_item_master_id)
+      																							+ " WHERE id =" + elem.sales_item_master_id)
       				.spread(function(results, metadata) {
 							 //console.log(metadata);
 							});
@@ -528,30 +525,6 @@ app.post('/salesinvoice', function(req, res){
 	}, function(e){
 		console.log('error: ', e);
 	});
-
-	// salesInvoiceItems.items.forEach(function(elem) {
- //        if (elem.quantity != 0) {
- //      console.log('Each item', elem);
- //      //   		db.suppliers.create(elem).then(function(supplier){
-	// 					// 	res.json(supplier.toJSON());
-	// 					// }, function(e){
-	// 					// 	res.status(400).json(e);
-	// 					// 	console.log(e);
-	// 					// });
- //        }
- //    });
-
-	//console.log('salesInvoiceItemDetails');
-	//console.log(salesInvoiceItemDetails.items);
-
-	
-	// db.suppliers.create(body).then(function(supplier){
-	// 	res.json(supplier.toJSON());
-	// }, function(e){
-	// 	res.status(400).json(e);
-	// 	console.log(e);
-	// });
-
 });
 
 

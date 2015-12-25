@@ -2,19 +2,6 @@ app.controller("createSalesInvoiceCtrl", function ($scope, $templateCache, $http
 
 
 
-// $scope.dummySalesInvoiceModel = {"items":[{ "item_id":"10000000", "itemname":"dolo","quantity":"1","sch":false,"mfg":"","batch":"","expdate":"","price":100,"amount":""},
-//                                           { "item_id":"10000001", "itemname":"crocin","quantity":"2","sch":false,"mfg":"","batch":"","expdate":"","price":100,"amount":""},
-//                                           {"quantity":0,"sch":false,"mfg":"","batch":"","expdate":"","price":100,"amount":""}
-//                                          ],
-// 																 "discount_amt":"200",
-// 																 "date": localDate.toJSON(),
-// 																 "buyer":"Test Patient",
-// 																 "doctor":"Test Prescribing Doctor",
-// 																 "net_amount": "6000"
-// 																};
-
-//console.log(localDate.toJSON());
-//$scope.dummySalesInvoiceModel.net_amount = 6000;
 $scope.salesInvoiceModel = {};
 
 	//Invoice header
@@ -29,8 +16,8 @@ $scope.salesInvoiceModel = {};
 	$scope.salesInvoiceModel.discount_amt = 0;
 
 	// amount
-	$scope.salesInvoiceModel.grossAmount = 0;
-	$scope.salesInvoiceModel.netAmount = 0;
+	$scope.salesInvoiceModel.gross_amount = 0;
+	$scope.salesInvoiceModel.net_amount = 0;
 
 	$scope.salesInvoiceModel.items.push({
 	         sales_item_master_id:undefined,
