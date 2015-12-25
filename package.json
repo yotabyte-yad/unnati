@@ -19,9 +19,11 @@
     "multer": "^1.1.0",
     "passport": "^0.3.0",
     "passport-local": "^1.0.0",
+    "printer": "^0.2.1",
     "sequelize": "^3.5.1",
     "sha1": "^1.1.1",
     "sqlite3": "^3.1.1",
+    "text-printer": "^1.0.7",
     "underscore": "^1.8.3"
   }
 }

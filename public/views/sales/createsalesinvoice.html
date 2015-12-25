@@ -51,9 +51,9 @@
             <tbody class="detail">
               <tr ng-repeat = "item in salesInvoiceModel.items">
                 <td style="text-align:center" id="item.sales_item_master_id_{{$index}}">{{item.sales_item_master_id}}</td>
-                <td><input class="form-control input-sm" ng-model="item.item_barcode" ng-keypress="addItem()" id="item.item_barcode_{{$index}}"></td>
-                <td><input class="form-control input-sm autocomplete_txt" ng-model="item.item_name" ng-keypress="addItem()" id="item.item_name_{{$index}}"></td>
-                <td style="text-align:center"><input class="form-control input-sm" ng-model="item.sales_item_purchase_qty" id="item.sales_item_purchase_qty_{{$index}}">
+                <td><input class="form-control input-sm autocomplete_barcode" ng-model="item.item_barcode" ng-keypress="addItem()" id="item.item_barcode_{{$index}}"></td>
+                <td><input class="form-control input-sm autocomplete_txt" ng-model="item.item_name" ng-keypress="addItem()" id="item.item_name_{{$index}}" ng-change="addItem()"></td>
+                <td style="text-align:center"><input class="form-control input-sm" ng-model="item.sales_item_purchase_qty" id="item.sales_item_purchase_qty_{{$index}}" ng-keypress="addItem()">
                 </td>
                 <td style="text-align:center" id="item.item_sales_price_{{$index}}">{{item.item_sales_price}}</td>
                 <td style="text-align:center" id="item.item_sales_tax_per_{{$index}}">{{item.sales_tax_per}}</td>

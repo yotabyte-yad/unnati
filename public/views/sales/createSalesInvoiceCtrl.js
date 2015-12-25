@@ -25,11 +25,6 @@ $scope.salesInvoiceModel = {};
 
 	$scope.salesInvoiceModel.items = [];
 
-	//Taxes
-	// $scope.salesInvoiceModel.vat5 = 0;
-	// $scope.salesInvoiceModel.vat7 = 0;
-	// $scope.salesInvoiceModel.GST  = 0;
-
 	//discount
 	$scope.salesInvoiceModel.discount_amt = 0;
 
@@ -54,9 +49,11 @@ $scope.salesInvoiceModel = {};
 		var blank = 0;
 		for(count=0;count < $scope.salesInvoiceModel.items.length;count++){
 			if($scope.salesInvoiceModel.items[count].item_name === undefined) {
-				blank += blank + 1
+				console.log($scope.salesInvoiceModel.items[count].item_name);
+				blank += blank + 1;
 			}			
 		}
+
 
 		if(blank == 0){
 			$scope.salesInvoiceModel.items.push({
@@ -156,6 +153,41 @@ $(document).on('focus','.autocomplete_txt',function(){
 	  	element_id = index[index.length-1]; //gives the index of the 
 	  	//$('#item.purchase_item_costprice_0').val('1000');
 	  	//$('#item.id_'+element_id).val(ui.item.data.id);
+	  	data_interlink(ui.item.data, element_id);
+
+		}		      	
+	});
+});
+
+
+//autocomplete script for item barcode
+$(document).on('focus','.autocomplete_barcode',function(){
+	$(this).autocomplete({
+		source: function( request, response ) {
+			$.ajax({
+				url : 'itembybarcode',
+				dataType: "json",
+				data: {
+				   q: request.term
+				},
+				 success: function( data ) {
+					 response( $.map( data, function( item ) {
+					 	//console.log(item);
+						return {
+							id: item.item_id,
+							value: item.item_barcode,
+							data : item
+						}
+					}));
+				}
+			});
+		},
+		autoFocus: true,	      	
+		minLength: 0,
+		select: function( event, ui ) {
+			id_arr = $(this).attr('id');
+	  	index = id_arr.split("_");
+	  	element_id = index[index.length-1]; //gives the index of the 
 	  	data_interlink(ui.item.data, element_id);
 
 		}		      	

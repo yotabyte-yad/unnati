@@ -84,7 +84,7 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 	$scope.grandTotal = function(){
 			var grandtotal = 0;
 			grandTotal = (($scope.totalPrice() || 0) - ($scope.purchaseInvoiceModel.discount_amt || 0));
-			console.log(grandTotal);
+			//console.log(grandTotal);
 			return grandtotal;
 	};
 
@@ -154,7 +154,7 @@ app.controller("createPurchaseInvoiceCtrl", function ($location, $scope, Purchas
 
 });
 
-//autocomplete script
+//autocomplete script for item name field
 $(document).on('focus','.autocomplete_txt',function(){
 	$(this).autocomplete({
 		source: function( request, response ) {
@@ -182,8 +182,41 @@ $(document).on('focus','.autocomplete_txt',function(){
 			id_arr = $(this).attr('id');
 	  	index = id_arr.split("_");
 	  	element_id = index[index.length-1]; //gives the index of the 
-	  	//$('#item.purchase_item_costprice_0').val('1000');
-	  	//$('#item.id_'+element_id).val(ui.item.data.id);
+	  	data_interlink(ui.item.data, element_id);
+
+		}		      	
+	});
+});
+
+
+//autocomplete script for item barcode
+$(document).on('focus','.autocomplete_barcode',function(){
+	$(this).autocomplete({
+		source: function( request, response ) {
+			$.ajax({
+				url : 'itembybarcode',
+				dataType: "json",
+				data: {
+				   q: request.term
+				},
+				 success: function( data ) {
+					 response( $.map( data, function( item ) {
+					 	//console.log(item);
+						return {
+							id: item.item_id,
+							value: item.item_barcode,
+							data : item
+						}
+					}));
+				}
+			});
+		},
+		autoFocus: true,	      	
+		minLength: 0,
+		select: function( event, ui ) {
+			id_arr = $(this).attr('id');
+	  	index = id_arr.split("_");
+	  	element_id = index[index.length-1]; //gives the index of the 
 	  	data_interlink(ui.item.data, element_id);
 
 		}		      	

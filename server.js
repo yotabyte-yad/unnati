@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -18,6 +19,7 @@ var knex = require("./dbconfig.js").knex;
 var createItemInDB = require("./crud.js").createItemInDB;
 
 var dateFormat = require('dateformat');
+var printer = require('printer');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json()); // for parsing application/json
@@ -72,6 +74,42 @@ app.post("/login", upload.array(), passport.authenticate('local'), function (req
 	res.json(req.user);
 });
 
+		
+		var company_name    = '                   UNNATI CYBER TECH' + '\n';
+		var seperator       = '--------------------------------------------------' + '\n';
+		var address_line1   = '                     MARCELA - GOA' + '\n';
+		var address_line2		= '                      0832-000000'  + '\n';
+		var header          = ' ITEM                        Qty 	Rate      Value' + '\n';
+
+    fs.writeFile('salesInvoice.txt', seperator + company_name + seperator + address_line1 + address_line2 + header
+
+
+    ,function (err) {
+        if (err) throw err;
+        console.log('Its saved! in same location.');
+    });
+
+
+
+	  // printer.printFile({filename:'salesInvoice.txt',
+	  //   printer: process.env[3], // printer name, if missing then will print to default printer
+	  //   success:function(jobID){
+	  //     console.log("sent to printer with ID: "+jobID);
+	  //   },
+	  //   error:function(err){
+	  //     console.log(err);
+	  //   }
+	  // });
+
+		printer.printDirect({data:fs.readFileSync('server.js'),
+		    printer: process.env[3], // printer name, if missing then will print to default printer
+		    success:function(jobID){
+		      console.log("sent to printer with ID: "+jobID);
+		    },
+		    error:function(err){
+		      console.log(err);
+		    }
+		  });
   ///Extracting Item values in request body
 
 app.post('/item', function(req, res){
@@ -114,6 +152,27 @@ app.get('/item', function(req, res){
 		res.status(500).send('Error in fetch (GET) all items: ' + e);
 	});
 });	
+
+//GET - Fetch item by barcode
+app.get('/itembybarcode', function(req, res){
+	var query = req.query;
+	var where = {};
+		//where.active = true;
+
+	if(query.hasOwnProperty('q') && query.q.length > 0){
+		where.item_barcode = {
+			$like: '%' + query.q + '%'
+		};
+	}	
+
+	db.items.findAll({where: where})
+		.then(function(items){		
+			//console.log(items);
+			res.json(items);			
+	}, function(e){
+		res.status(500).send('Error in fetch (GET) all items: ' + e);
+	});
+});
 
 //GET all the items
 app.get("/item_detail", function (req, res){
@@ -189,27 +248,6 @@ app.get('/mfgs', function(req, res){
 		res.status(500).send('Error in fetch (GET) all Manufacturers: ' + e);
 	});
 });	
-
-// //GET a specific Manufacturer
-// app.get('/mfgs/:id', function(req, res){
-// 	var query = req.query;
-// 	var where = {};
-// 		where.active = true;
-
-// 	if(query.hasOwnProperty('q') && query.q.length > 0){
-// 		where.name = {
-// 			$like: '%' + query.q + '%'
-// 		};
-// 	}	
-
-// 	db.mfgs.findAll({where: where})
-// 		.then(function(mfgs){		
-// 			//console.log(mfgs);
-// 			res.json(mfgs);			
-// 	}, function(e){
-// 		res.status(500).send('Error in fetch (GET) all suppliers: ' + e);
-// 	});
-// });	
 
 //POST - Add a new manufacturer to database
 app.post('/mfgs', function(req, res){
@@ -458,7 +496,7 @@ app.post('/salesinvoice', function(req, res){
 
 	//console.log(typeof(salesInvoice.items));
 	//console.log(salesInvoiceHeader);
-	console.log('AFTER SALES INVOICE HEADER');
+
 	db.sales.create(salesInvoiceHeader).then(function(header){
 			resBody = header;
 			//console.log(resBody);
@@ -473,7 +511,9 @@ app.post('/salesinvoice', function(req, res){
       			db.sales_details.create(elem).then(function(item){
       				//console.log(elem);	
       				//Reduce the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
-      				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock -" + elem.quantity + " WHERE id = 10000004").spread(function(results, metadata) {
+      				db.sequelize.query("UPDATE items SET item_current_stock = item_current_stock -" + elem.sales_item_purchase_qty 
+      																							+ " WHERE id =" + elem.purchase_item_master_id)
+      				.spread(function(results, metadata) {
 							 //console.log(metadata);
 							});
 
