@@ -53,13 +53,17 @@
                 <td style="text-align:center" id="item.sales_item_master_id_{{$index}}">{{item.sales_item_master_id}}</td>
                 <td><input class="form-control input-sm autocomplete_barcode" ng-model="item.item_barcode" ng-keypress="addItem()" id="item.item_barcode_{{$index}}"></td>
                 <td><input class="form-control input-sm autocomplete_txt" ng-model="item.item_name" ng-keypress="addItem()" id="item.item_name_{{$index}}" ng-change="addItem()"></td>
-                <td style="text-align:center"><input class="form-control input-sm" ng-model="item.sales_item_purchase_qty" id="item.sales_item_purchase_qty_{{$index}}" ng-keypress="addItem()">
+                <td style="text-align:center"><input class="form-control input-sm" 
+                                                     ng-model="item.sales_item_purchase_qty" 
+                                                     id="item.sales_item_purchase_qty_{{$index}}" 
+                                                     ng-keypress="addItem()"
+                                                     onkeypress="return wholeNumbers(event,this);">
                 </td>
                 <td style="text-align:center" id="item.item_sales_price_{{$index}}">{{item.item_sales_price}}</td>
                 <td style="text-align:center" id="item.item_sales_tax_per_{{$index}}">{{item.sales_tax_per}}</td>
                 <td style="text-align:center amount" >{{(item.sales_item_purchase_qty || 0) * (item.item_sales_price || 0)}}</td>
                 <td> <input type="button" value="X" class="btn btn-primary btn-sm" ng-click=removeItem(item)></td>             
-              </tr>
+             </tr>
             </tbody>
             <tfooter>
               <tr>
@@ -78,7 +82,10 @@
                 <td class="emptyrow"></td>
                 <td class="emptyrow"></td>
                 <td style="text-align:center" class="emptyrow"><b>Discount</b></td>
-                <td style="text-align:center"><input class="form-control input-sm" ng-model="salesInvoiceModel.discount_amt" money></td> 
+                <td style="text-align:center"><input class="form-control input-sm" style="text-align: center"
+                                                     ng-model="salesInvoiceModel.discount_amt" 
+                                                     onkeypress="return wholeNumbers(event,this);">
+                </td> 
               </tr>
               <tr>
                 <td class="emptyrow"></td>
