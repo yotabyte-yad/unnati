@@ -1,3 +1,4 @@
-app.controller("listSalesInvoicesCtrl", function ($scope, $templateCache, $http){
+app.controller("listSalesInvoicesCtrl", function ($scope, $templateCache, $http, SalesInvoiceFactory){
+	
 	
 });

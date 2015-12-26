@@ -501,22 +501,23 @@ app.post('/salesinvoice', function(req, res){
 	var billNo = undefined;
 	var resBody = {};
 
+	globalBillDetails = salesInvoiceHeader;
 	db.sales.create(salesInvoiceHeader).then(function(header){
 			resBody = header;
 			//console.log(resBody);
 			billNo = header.id;
 
 			globalBillDetails.billNo     = header.id;
-			globalBillDetails.sales_date = header.sales_date;
-			globalBillDetails.items      = salesInvoiceItems.items;  
+			//globalBillDetails.sales_date = header.sales_date;
+			globalBillDetails.items      = salesInvoiceItems.items; 
+			//now the object is ready to be sent to the client 
 
 		salesInvoiceItems.items.forEach(function(elem) {
         if (elem.sales_item_purchase_qty != 0) {
         	  //elem.id = billNo;
         	  elem.sales_id = billNo;
         	  // elem.item_sales_price = numeral(elem.item_sales_price).format('0.00');
-      		  console.log('Each item', elem);
-      			
+      		  //console.log('Each item', elem);      			
       			db.sales_details.create(elem).then(function(item){
       				//console.log(elem);	
       				//Reduce the quantity of items(item_current_stock) by the number of units purchased (elem.quantity)
@@ -534,8 +535,8 @@ app.post('/salesinvoice', function(req, res){
       			});
         }
     });	
-		printBill();		
-		//res.json(globalBillDetails);
+		//printBill();		
+		res.json(globalBillDetails);
 		//console.log(header.id);
 	}, function(e){
 		res.status(400).json(e);

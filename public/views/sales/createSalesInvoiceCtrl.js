@@ -87,11 +87,13 @@ $scope.salesInvoiceModel = {};
 		//SalesInvoiceFactory.create($scope.dummySalesInvoiceModel)
 		SalesInvoiceFactory.create($scope.salesInvoiceModel)
 				.success(function(response){
+					console.log('saveSalesInvoice', response);
 					toastr.success('Sales Invoice created successfully');	
+
 				// 	$timeout(function(){														
 				// 	$location.url("/mfgslist");
 				// }, 3000);						
-				setTimeout("location.reload(true);", 600);
+				//setTimeout("location.reload(true);", 600);
 		})
 		.error(function(){
 			console.log('Error while adding this Bill');
@@ -139,13 +141,11 @@ $(document).on('focus','.autocomplete_txt',function(){
 			});
 		},
 		autoFocus: true,	      	
-		minLength: 0,
+		minLength: 3,
 		select: function( event, ui ) {
 			id_arr = $(this).attr('id');
 	  	index = id_arr.split("_");
 	  	element_id = index[index.length-1]; //gives the index of the 
-	  	//$('#item.purchase_item_costprice_0').val('1000');
-	  	//$('#item.id_'+element_id).val(ui.item.data.id);
 	  	data_interlink(ui.item.data, element_id);
 
 		}		      	
@@ -176,7 +176,7 @@ $(document).on('focus','.autocomplete_barcode',function(){
 			});
 		},
 		autoFocus: true,	      	
-		minLength: 0,
+		minLength: 3,
 		select: function( event, ui ) {
 			id_arr = $(this).attr('id');
 	  	index = id_arr.split("_");

@@ -72,7 +72,7 @@ app.factory('SalesInvoiceFactory',['$http', function($http){
 	};
 
 	create = function(salesInvoiceModel) {
-		console.log('appServicesCreate', salesInvoiceModel);
+		//console.log('appServicesCreate', salesInvoiceModel);
 		return $http.post(urlBase, salesInvoiceModel);
 	};
 
