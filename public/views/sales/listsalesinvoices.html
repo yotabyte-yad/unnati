@@ -1,0 +1,41 @@
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">List of Sales Invoices</h3>
+  </div>
+  <div class="panel-body">
+      <form class = "form-inline well well-sm">
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" ng-model="search.name" placeholder="Search on name..." autocomplete="off" />
+        </div>
+      </form>
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr class="active">
+            <th class="col-lg-1">Bill Date</th>
+            <th class="col-lg-4">Bill No  </th>
+            <th class="col-lg-1">Discount </th>
+            <th class="col-lg-1">Bill Amount </th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="invoice in allPurchaseInvoices | filter:search  ">
+                  <td> {{invoice.date}} </td>
+                  <td>{{invoice.id}}</td>
+                  <td>{{invoice.discount_amt | currency: '&#8377' : 0}}</td>
+                  <td>{{invoice.net_amount   | currency: '&#8377' : 0}}</td>
+                  <td>
+                    <button class="btn btn-success btn-sm" ng-click="goToEditScreen(invoice.id)">Edit</button>
+                  </td>
+          </tr>
+        </tbody>  
+      </table>  
+  <div>  
+</div>
+<pre>
+{{purchaseInvoiceModel}}
+</pre>      
+
+<script>
+    moment().format();
+</script>
