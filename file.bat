@@ -1,2 +1,2 @@
 NOTEPAD /P bill.txt
-exit
+rm bill.txt
