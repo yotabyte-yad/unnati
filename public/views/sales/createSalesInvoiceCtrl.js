@@ -65,13 +65,18 @@ $scope.salesInvoiceModel = {};
 			for(count=0;count<$scope.salesInvoiceModel.items.length;count++){
 				subtotal += (($scope.salesInvoiceModel.items[count].item_sales_price || 0) * ($scope.salesInvoiceModel.items[count].sales_item_purchase_qty || 0));
 			}
+			$scope.salesInvoiceModel.gross_amount = subtotal;
+			$scope.salesInvoiceModel.gross_amount = numeral($scope.salesInvoiceModel.gross_amount).format('0');
+			$scope.salesInvoiceModel.net_amount = subtotal - $scope.salesInvoiceModel.discount_amt;
+			$scope.salesInvoiceModel.net_amount = numeral($scope.salesInvoiceModel.net_amount).format('0');
 			return subtotal;
 	};
 
 	$scope.grandTotal = function(){
 			var grandtotal = 0;
 			grandTotal = (($scope.totalPrice() || 0) - ($scope.salesInvoiceModel.discount_amt || 0));
-			$scope.salesInvoiceModel.net_amount = $scope.grandTotal() || 0;
+			$scope.salesInvoiceModel.net_amount = grandTotal() || 0;
+
 			return grandtotal;
 	};
 

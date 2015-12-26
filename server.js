@@ -535,7 +535,7 @@ app.post('/salesinvoice', function(req, res){
         }
     });	
 		printBill();		
-		res.json('Success');
+		//res.json(globalBillDetails);
 		//console.log(header.id);
 	}, function(e){
 		res.status(400).json(e);
