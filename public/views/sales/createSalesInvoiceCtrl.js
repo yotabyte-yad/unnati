@@ -83,9 +83,10 @@ $scope.salesInvoiceModel = {};
 		SalesInvoiceFactory.create($scope.salesInvoiceModel)
 				.success(function(response){
 					toastr.success('Sales Invoice created successfully');	
-					$timeout(function(){														
-					$location.url("/mfgslist");
-				}, 3000);						
+				// 	$timeout(function(){														
+				// 	$location.url("/mfgslist");
+				// }, 3000);						
+				setTimeout("location.reload(true);", 600);
 		})
 		.error(function(){
 			console.log('Error while adding this Bill');

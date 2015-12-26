@@ -87,49 +87,51 @@ app.post("/login", upload.array(), passport.authenticate('local'), function (req
 		var test            = '1234567890123456789012345678901234567890' + '\n';
 
 
-		var printBill = function() {
-			var printItems = '';
-					globalBillDetails.items.forEach(function(elem){
-						if(elem.sales_item_purchase_qty > 0){
-									
-							elem.item_sales_price = numeral(elem.item_sales_price).format('0.00');
-							elem.item_value       = numeral((elem.sales_item_purchase_qty * elem.item_sales_price ) || 0).format('0.00');							
-							elem.item_name 		  = S(elem.item_name).padRight(19);
-							elem.sales_item_purchase_qty = S(elem.sales_item_purchase_qty).padLeft(3);
-							elem.item_sales_price        = S(elem.item_sales_price).padLeft(6);
-							elem.item_value              = S(elem.item_value).padLeft(7);
+			var printBill = function() {
+				var printItems = '';
+						globalBillDetails.items.forEach(function(elem){
+							if(elem.sales_item_purchase_qty > 0){
+										
+								elem.item_sales_price = numeral(elem.item_sales_price).format('0.00');
+								elem.item_value       = numeral((elem.sales_item_purchase_qty * elem.item_sales_price ) || 0).format('0.00');							
+								elem.item_name 		  = S(elem.item_name).padRight(19);
+								elem.sales_item_purchase_qty = S(elem.sales_item_purchase_qty).padLeft(3);
+								elem.item_sales_price        = S(elem.item_sales_price).padLeft(6);
+								elem.item_value              = S(elem.item_value).padLeft(7);
 
-							printItems += elem.item_name 
-											+ '  ' + elem.sales_item_purchase_qty 
-											+ '  ' + elem.item_sales_price 
-										    + '  ' + elem.item_value + '\n';
+								printItems += elem.item_name 
+												+ '  ' + elem.sales_item_purchase_qty 
+												+ '  ' + elem.item_sales_price 
+											    + '  ' + elem.item_value + '\n';
 
-							console.log('Print Element');
-							console.log(printItems);			    
+								console.log('Print Element');
+								console.log(printItems);			    
 
-						}			    
-					});
+							}			    
+						});
 
-					//console.log(printItems);
+						//console.log(printItems);
 
-				    fs.writeFile('bill.txt', seperator + company_name + seperator + address_line1 + address_line2 
-				    	+ seperator + header + seperator + test + seperator + printItems + seperator
-				    ,function (err) {
-				        if (err) throw err;
-				        console.log('Its saved! in same location.');
-				    });
+					    fs.writeFile('bill.txt', seperator + company_name + seperator + address_line1 + address_line2 
+					    	+ seperator + header + seperator + test + seperator + printItems + seperator
+					    ,function (err) {
+					        if (err) throw err;
+					        console.log('Its saved! in same location.');
+					    });
 
-					require('child_process').exec(__dirname + "/file.bat", function (err, stdout, stderr) {
-					    if (err) {
-					        // Ooops.
-					        // console.log(stderr);
-					        return console.log(err);
-					    }
-					    // Done.
-					    console.log(stdout);
-					});
+						require('child_process').exec(__dirname + "/file.bat", function (err, stdout, stderr) {
+						    if (err) {
+						        // Ooops.
+						        // console.log(stderr);
+						        return console.log(err);
+						    }
+						    // Done.
+						    console.log(stdout);
+						});
 
-	}
+			}
+
+/// Working Print code is above	
 
 app.post('/item', function(req, res){
 	var body = _.pick(req.body, 'id','item_barcode', 'item_name', 'item_loc', 'item_description','item_current_stock',
@@ -408,19 +410,14 @@ app.post('/purchaseinvoice', function(req, res){
 	//date format interchange
 		var l_invoice_date = new Date(purchaseInvoiceHeader.invoice_date); 
 		var l_supplier_invoice_date = new Date(purchaseInvoiceHeader.supplier_invoice_date); 
-		purchaseInvoiceHeader.invoice_date 					 = dateFormat(l_invoice_date, "dd/mm/yyyy"); //l_invoice_date.toLocaleDateString('en-GB');
-		purchaseInvoiceHeader.supplier_invoice_date  = dateFormat(l_supplier_invoice_date, "dd/mm/yyyy"); //l_supplier_invoice_date.toLocaleDateString('en-GB');
+		purchaseInvoiceHeader.invoice_date 					 = dateFormat(l_invoice_date, "dd/mm/yyyy"); 
+		purchaseInvoiceHeader.supplier_invoice_date  = dateFormat(l_supplier_invoice_date, "dd/mm/yyyy");
 
 		var ph = purchaseInvoiceHeader;
-
-	 	//console.log(purchaseInvoiceHeader.invoice_date);
-		//console.log(purchaseInvoiceHeader.supplier_invoice_date);
-
 		db.purchases.create(purchaseInvoiceHeader).then(function(header){
 				resBody = header;
 				purchase_id = header.id;
-				//console.log(header.id);
-
+				
 				//Now saving the items on the purchaseInvoice
 				purchaseInvoiceItems.items.forEach(function(elem){
 						if(elem.purchase_item_purchase_qty != 0){
