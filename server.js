@@ -79,41 +79,55 @@ app.post("/login", upload.array(), passport.authenticate('local'), function (req
 });
 
 		
-		var company_name    = '           UNNATI CYBER TECH' + '\n';
-		var seperator       = '----------------------------------------' + '\n';
-		var address_line1   = '             MARCELA - GOA' + '\n';
-		var address_line2		= '          0832-000000'  + '\n';
-		var header          = ' ITEM                  Qty   Rate  Value' + '\n';
-		var test            = '1234567890123456789012345678901234567890' + '\n';
+
 
 
 			var printBill = function() {
+				
+				var company_name    = '           UNNATI CYBER TECH' + '\n';
+				var seperator       = '----------------------------------------' + '\n';
+				var address_line1   = '             MARCELA - GOA' + '\n';
+				var address_line2		= '          0832-000000'  + '\n';
+				var header          = ' ITEM                 Qty   Rate   Value' + '\n';
+				var test            = '1234567890123456789012345678901234567890' + '\n';
+
+				//console.log('Starting Printing Bill --- 1');
+				
 				var printItems = '';
+						var items = 0;
 						globalBillDetails.items.forEach(function(elem){
 							if(elem.sales_item_purchase_qty > 0){
-										
+								item = items + 1;		
 								elem.item_sales_price = numeral(elem.item_sales_price).format('0.00');
 								elem.item_value       = numeral((elem.sales_item_purchase_qty * elem.item_sales_price ) || 0).format('0.00');							
-								elem.item_name 		  = S(elem.item_name).padRight(19);
+								elem.item_name        = elem.item_name.substring(0, 18);
+								elem.item_name 		  = S(elem.item_name).padRight(18);
 								elem.sales_item_purchase_qty = S(elem.sales_item_purchase_qty).padLeft(3);
 								elem.item_sales_price        = S(elem.item_sales_price).padLeft(6);
 								elem.item_value              = S(elem.item_value).padLeft(7);
+
+								
 
 								printItems += elem.item_name 
 												+ '  ' + elem.sales_item_purchase_qty 
 												+ '  ' + elem.item_sales_price 
 											    + '  ' + elem.item_value + '\n';
 
-								console.log('Print Element');
-								console.log(printItems);			    
+								//console.log('Print Element');
+								//console.log(printItems);			    
 
 							}			    
 						});
 
+						//l_gross_amount             =  'GROSS AMOUNT        Rs. ' + S(elem.gross_amount).padLeft(16);
+						//l_discount_amount          =  'DISCOUNT            Rs. ' + S(elem.discount_amt).padLeft(16);
+						l_net_amount               =  'AMOUNT PAYABLE      Rs. ' + S(globalBillDetails.net_amount).padLeft(16) + '\n';
+						//console.log(elem.net_amount);
+						console.log('globalBillDetails', globalBillDetails);			
 						//console.log(printItems);
-
+						console.log('Starting Printing Bill --- 2');
 					    fs.writeFile('bill.txt', seperator + company_name + seperator + address_line1 + address_line2 
-					    	+ seperator + header + seperator + test + seperator + printItems + seperator
+					    	+ seperator + header + seperator + test + seperator + printItems + seperator + l_net_amount + seperator
 					    ,function (err) {
 					        if (err) throw err;
 					        console.log('Its saved! in same location.');
@@ -535,13 +549,15 @@ app.post('/salesinvoice', function(req, res){
       			});
         }
     });	
-		//printBill();		
 		res.json(globalBillDetails);
 		//console.log(header.id);
 	}, function(e){
 		res.status(400).json(e);
 		console.log(e);
-	});
+	}).then(function(){
+		console.log('Printing Bill');
+		printBill();
+	   });
 });
 
 

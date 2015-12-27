@@ -61,7 +61,8 @@
                 </td>
                 <td style="text-align:center" id="item.item_sales_price_{{$index}}">{{item.item_sales_price}}</td>
                 <td style="text-align:center" id="item.item_sales_tax_per_{{$index}}">{{item.sales_tax_per}}</td>
-                <td style="text-align:center amount" >{{(item.sales_item_purchase_qty || 0) * (item.item_sales_price || 0)}}</td>
+                <td style="text-align:center amount" >
+                    {{(item.sales_item_purchase_qty || 0) * (item.item_sales_price || 0) | currency: '&#8377' : 2}}</td>
                 <td> <input type="button" value="X" class="btn btn-primary btn-sm" ng-click=removeItem(item)></td>             
              </tr>
             </tbody>
