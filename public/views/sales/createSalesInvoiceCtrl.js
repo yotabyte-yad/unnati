@@ -119,7 +119,7 @@ $scope.salesInvoiceModel = {};
 
 
 //autocomplete script
-$(document).on('focus','.autocomplete_txt',function(){
+$(document).on('.autocomplete_txt',function(){
 	$(this).autocomplete({
 		source: function( request, response ) {
 			$.ajax({
